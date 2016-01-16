@@ -14,6 +14,11 @@ public class ArrayOuttaMemoryHeap {
             AnObject anObject = new AnObject();
             objects.add(anObject);
             System.out.println("A new Object was added to an array, iteration " + i + 1);
+
+            //for Task06
+//            if (i % 100 == 0) {
+//                System.gc();
+//            }
         }
     }
 }
