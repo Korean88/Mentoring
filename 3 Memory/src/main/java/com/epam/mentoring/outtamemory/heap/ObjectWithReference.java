@@ -6,7 +6,7 @@ package com.epam.mentoring.outtamemory.heap;
 public class ObjectWithReference {
 
     private ObjectWithReference reference;
-    static int counter;
+    private int[] heavyArray = new int[9999];
 
     public ObjectWithReference getReference() {
         return reference;
