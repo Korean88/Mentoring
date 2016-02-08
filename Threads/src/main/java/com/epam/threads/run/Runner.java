@@ -34,7 +34,7 @@ public class Runner {
 //        Runnable thread6 = new UserThread(mrJackson, ACCOUNT_NAME2, CurrencyExchange.KZT_USD);
 //        Runnable thread7 = new UserThread(mrsSmith, ACCOUNT_NAME3, CurrencyExchange.USD_EUR);
 //        Runnable thread8 = new UserThread(msStewart, ACCOUNT_NAME4, CurrencyExchange.EUR_KZT);
-//        Runnable thread9 = new UserThread(mrBlack, ACCOUNT_NAME1, CurrencyExchange.USD_EUR);
+        Runnable thread9 = new UserThread(mrBlack, ACCOUNT_NAME1, CurrencyExchange.USD_EUR);
         ExecutorService exec = Executors.newCachedThreadPool();
         exec.submit(thread1);
 //        exec.submit(thread2);

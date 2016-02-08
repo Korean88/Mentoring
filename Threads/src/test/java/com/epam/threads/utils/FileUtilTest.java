@@ -16,11 +16,9 @@ import static org.hamcrest.core.IsNot.not;
  */
 public class FileUtilTest {
 
-    private FileUtil fileUtil = new FileUtil();
-
     @Test
     public void shouldReadProperties() {
-        Properties properties = fileUtil.loadPropertiesFromFile("datafiles/rates/exchangeRate.properties");
+        Properties properties = FileUtil.loadPropertiesFromFile("rates/exchangeRate.properties");
         assertThat(properties.keySet(), not(empty()));
         String rootLogger = properties.getProperty("UsdEur");
         assertThat(rootLogger, equalTo("0.90"));
@@ -28,20 +26,20 @@ public class FileUtilTest {
 
     @Test
     public void shouldRewritePropertiesInFile() {
-        String filename = "datafiles/test.properties";
+        String filename = "test.properties";
         Properties props = new Properties();
         props.put("fromTest1", "Val1");
         props.put("fromTest2", "Val2");
         props.put("fromTest3", "Val3");
-        fileUtil.savePropertiesToFile(filename, props);
-        Properties saved = fileUtil.loadPropertiesFromFile(filename);
+        FileUtil.savePropertiesToFile(filename, props);
+        Properties saved = FileUtil.loadPropertiesFromFile(filename);
         assertThat(saved.keySet(), is(notNullValue()));
         assertThat(saved.keySet().size(), is(3));
     }
 
     @Test
     public void shouldDelete() {
-        fileUtil.removeFile("datafiles/123.txt");
+        FileUtil.removeFile("datafiles/123.txt");
     }
 
 }

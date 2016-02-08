@@ -1,10 +1,12 @@
 package com.epam.threads.run;
 
+import com.epam.threads.config.SpringConfig;
 import com.epam.threads.model.User;
 import com.epam.threads.service.CurrencyExchange;
 import com.epam.threads.service.ExchangeService;
-import com.epam.threads.service.ExchangeServiceImpl;
 import org.apache.log4j.Logger;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.math.BigDecimal;
 
@@ -62,8 +64,9 @@ public class UserThread implements Runnable {
         LOG.debug(this.toString() + " starting...");
         for (int i = 0; i < REPEATS; i++) {
             LOG.debug(this.toString() + ": repeat " + i);
+            ApplicationContext ctx = new AnnotationConfigApplicationContext(SpringConfig.class);
+            ExchangeService exchangeService = (ExchangeService) ctx.getBean(SpringConfig.EXCHANGE_SERVICE_NAME);
             BigDecimal amount = new BigDecimal(10);
-            ExchangeService exchangeService = new ExchangeServiceImpl();
             exchangeService.transferToSubAccount(accountName, user, currencyExchange, amount);
         }
         LOG.debug(this.toString() + " finished");

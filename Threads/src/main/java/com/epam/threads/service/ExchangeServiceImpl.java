@@ -26,18 +26,13 @@ public class ExchangeServiceImpl implements ExchangeService {
     public synchronized void transferToSubAccount(String accountName, User user, CurrencyExchange currencyExchange,
                                      BigDecimal amountInBaseCurrency) {
         try {
-/*            if (lock.isLocked()) {
-                LOG.debug("locked here");
-            }
-            lock.lock();*/
             LOG.debug("Start converting/transferring money within an account");
             AccountDao accountDao = new AccountDaoImpl();
             Account account = accountDao.readUserAccountFromFile(accountName, user);
             if (amountInBaseCurrency.compareTo(account.getAmounts().get(currencyExchange.getCurrencyFrom())) > 0) {
                 throw new InsufficientFundsException(amountInBaseCurrency, account, currencyExchange);
             }
-            FileUtil fileUtil = new FileUtil();
-            Properties properties = fileUtil.loadPropertiesFromFile(FileUtil.EXHANGE_RATE_PROPERTIES_FILE);
+            Properties properties = FileUtil.loadPropertiesFromFile(FileUtil.EXHANGE_RATE_PROPERTIES_FILE);
             BigDecimal initialAmountFrom = account.getAmounts().get(currencyExchange.getCurrencyFrom());
             BigDecimal initialAmountTo = account.getAmounts().get(currencyExchange.getCurrencyTo());
             BigDecimal rate = new BigDecimal(currencyExchange.getExchangeRate(properties,
@@ -51,10 +46,6 @@ public class ExchangeServiceImpl implements ExchangeService {
             LOG.debug("Finished converting/transferring money");
         } catch (CustomBusinessException e) {
             LOG.error(e.getMessage(), e);
-        } /*finally {
-            if (lock.isLocked()) {
-                lock.unlock();
-            }
-        }*/
+        }
     }
 }
