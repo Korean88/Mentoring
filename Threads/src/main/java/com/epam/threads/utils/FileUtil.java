@@ -26,60 +26,40 @@ public class FileUtil {
     public static final String ACCOUNTS_DIR = "datafiles/accounts/";
     public static final String PROPERTIES_EXT = ".properties";
 
-    private ReentrantLock lock = new ReentrantLock();
-
-    public Properties loadPropertiesFromFile(String filename) {
+    public static synchronized Properties loadPropertiesFromFile(String filename) {
         Properties properties = new Properties();
         File file = new File(filename);
         try {
-            LOGGER.debug("read. trying to lock...");
-            lock.tryLock(2, TimeUnit.SECONDS);
-            LOGGER.debug("read. locked: " + lock.isLocked());
+            LOGGER.debug("read from properties...");
             RandomAccessFile randomAccessFile = new RandomAccessFile(file, "rw");
-//            FileLock lock = randomAccessFile.getChannel().lock();
             InputStream is = Channels.newInputStream(randomAccessFile.getChannel().position(0L));
             properties.load(is);
-//            if (lock != null) {
-//                lock.release();
-//            }
             randomAccessFile.getChannel().close();
             is.close();
+            LOGGER.debug("finished reading from properties...");
         } catch (Exception e) {
             LOGGER.error("Couldn't load properties from file [" + filename + "]", e);
-        } finally {
-            if (lock.isLocked()) {
-                lock.unlock();
-                LOGGER.debug("read. lock unlocked");
-            }
         }
         return properties;
     }
 
-    public void savePropertiesToFile(String filename, Properties properties) {
+    public static synchronized void savePropertiesToFile(String filename, Properties properties) {
         if (CollectionUtils.isNotEmpty(properties.keySet())) {
             try {
-                LOGGER.debug("write. trying to lock...");
-                lock.tryLock(2, TimeUnit.SECONDS);
-                LOGGER.debug("write. locked: " + lock.isLocked());
+                LOGGER.debug("writing to file...");
                 FileChannel fileChannel = FileChannel.open(Paths.get(filename), StandardOpenOption.WRITE);
-//                FileLock lock = fileChannel.lock();
-//                LOGGER.debug("write. lock valid: " + lock.isValid());
                 OutputStream os = Channels.newOutputStream(fileChannel.position(0L));
                 properties.store(os, null);
                 os.close();
                 fileChannel.close();
+                LOGGER.debug("finished writing to file...");
             } catch (Exception e) {
                 LOGGER.error("Could not save properties to file [" + filename + "]", e);
-            } finally {
-                if (lock.isLocked()) {
-                    lock.unlock();
-                    LOGGER.debug("lock unlocked");
-                }
             }
         }
     }
 
-    public boolean removeFile(String filename) {
+    public static synchronized boolean removeFile(String filename) {
         File file = new File(filename);
         if (file != null) {
             if (file.delete()) {

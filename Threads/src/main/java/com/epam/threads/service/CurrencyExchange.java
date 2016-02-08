@@ -10,42 +10,12 @@ import java.util.Properties;
  */
 public enum CurrencyExchange {
 
-    EUR_USD(Currency.EUR, Currency.USD) {
-        @Override
-        public double getExchangeRate(Properties properties) throws NoExchangeRateFoundException {
-            return getDoubleValueFromProps(properties, "EurUsd", Currency.EUR, Currency.USD);
-        }
-    },
-    EUR_KZT(Currency.EUR, Currency.KZT) {
-        @Override
-        public double getExchangeRate(Properties properties) throws NoExchangeRateFoundException {
-            return getDoubleValueFromProps(properties, "EurKzt", Currency.EUR, Currency.KZT);
-        }
-    },
-    USD_EUR(Currency.USD, Currency.EUR) {
-        @Override
-        public double getExchangeRate(Properties properties) throws NoExchangeRateFoundException {
-            return getDoubleValueFromProps(properties, "UsdEur", Currency.USD, Currency.EUR);
-        }
-    },
-    USD_KZT(Currency.USD, Currency.KZT) {
-        @Override
-        public double getExchangeRate(Properties properties) throws NoExchangeRateFoundException {
-            return getDoubleValueFromProps(properties, "UsdKzt", Currency.USD, Currency.KZT);
-        }
-    },
-    KZT_EUR(Currency.KZT, Currency.EUR) {
-        @Override
-        public double getExchangeRate(Properties properties) throws NoExchangeRateFoundException {
-            return getDoubleValueFromProps(properties, "KztEur", Currency.KZT, Currency.EUR);
-        }
-    },
-    KZT_USD(Currency.KZT, Currency.USD) {
-        @Override
-        public double getExchangeRate(Properties properties) throws NoExchangeRateFoundException {
-            return getDoubleValueFromProps(properties, "EurKzt", Currency.EUR, Currency.KZT);
-        }
-    };
+    EUR_USD(Currency.EUR, Currency.USD),
+    EUR_KZT(Currency.EUR, Currency.KZT),
+    USD_EUR(Currency.USD, Currency.EUR),
+    USD_KZT(Currency.USD, Currency.KZT),
+    KZT_EUR(Currency.KZT, Currency.EUR),
+    KZT_USD(Currency.KZT, Currency.USD);
 
     private final Currency currencyFrom;
     private final Currency currencyTo;
@@ -63,9 +33,10 @@ public enum CurrencyExchange {
         this.currencyTo = currencyTo;
     }
 
-    private static double getDoubleValueFromProps(Properties properties, String key,
-                                                  Currency baseCurrency,
-                                                  Currency foreignCurrency) throws NoExchangeRateFoundException {
+    public double getExchangeRate(Properties properties,
+                                  Currency baseCurrency,
+                                  Currency foreignCurrency) throws NoExchangeRateFoundException {
+        String key = baseCurrency.getKey() + foreignCurrency.getKey();
         if (properties != null && properties.get(key) != null) {
             return Double.parseDouble((String) properties.get(key));
         } else {
@@ -73,5 +44,4 @@ public enum CurrencyExchange {
         }
     }
 
-    public abstract double getExchangeRate(Properties properties) throws NoExchangeRateFoundException;
 }

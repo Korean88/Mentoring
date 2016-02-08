@@ -5,8 +5,17 @@ package com.epam.threads.model;
  */
 public enum Currency {
 
-    USD,
-    EUR,
-    KZT
+    USD("Usd"),
+    EUR("Eur"),
+    KZT("Kzt");
 
+    private final String key;
+
+    Currency(String key) {
+        this.key = key;
+    }
+
+    public String getKey() {
+        return key;
+    }
 }
