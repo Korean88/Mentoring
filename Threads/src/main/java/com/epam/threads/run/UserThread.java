@@ -62,6 +62,7 @@ public class UserThread implements Runnable {
     @Override
     public void run() {
         LOG.debug(this.toString() + " starting...");
+        LOG.warn("thread started: " + Thread.currentThread().getId());
         for (int i = 0; i < REPEATS; i++) {
             LOG.debug(this.toString() + ": repeat " + i);
             ApplicationContext ctx = new AnnotationConfigApplicationContext(SpringConfig.class);

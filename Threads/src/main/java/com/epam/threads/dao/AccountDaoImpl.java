@@ -20,28 +20,25 @@ public class AccountDaoImpl implements AccountDao {
 
     @Override
     public void saveUserAccount(Account account) {
-        FileUtil fileUtil = new FileUtil();
         Properties properties = new Properties();
         properties.put(USER_ID, "" + account.getOwner().getId());
         properties.put(Currency.EUR.name(), account.getAmounts().get(Currency.EUR).toPlainString());
         properties.put(Currency.USD.name(), account.getAmounts().get(Currency.USD).toPlainString());
         properties.put(Currency.KZT.name(), account.getAmounts().get(Currency.KZT).toPlainString());
-        fileUtil.savePropertiesToFile(FileUtil.ACCOUNTS_DIR + account.getAccountName() + FileUtil.PROPERTIES_EXT,
+        FileUtil.savePropertiesToFile(FileUtil.ACCOUNTS_DIR + account.getAccountName() + FileUtil.PROPERTIES_EXT,
                 properties);
     }
 
     @Override
     public void removeUserAccount(Account account) throws MissingAccountException {
-        FileUtil fileUtil = new FileUtil();
-        if (!fileUtil.removeFile(FileUtil.ACCOUNTS_DIR + account.getAccountName() + FileUtil.PROPERTIES_EXT)) {
+        if (!FileUtil.removeFile(FileUtil.ACCOUNTS_DIR + account.getAccountName() + FileUtil.PROPERTIES_EXT)) {
             throw new MissingAccountException(account.getAccountName(), account.getOwner());
         }
     }
 
     @Override
     public Account readUserAccountFromFile(String accountName, User user) throws MissingAccountException, UnauthorizedAccountAccessException {
-        FileUtil fileUtil = new FileUtil();
-        Properties properties = fileUtil.loadPropertiesFromFile(FileUtil.ACCOUNTS_DIR + accountName + FileUtil.PROPERTIES_EXT);
+        Properties properties = FileUtil.loadPropertiesFromFile(FileUtil.ACCOUNTS_DIR + accountName + FileUtil.PROPERTIES_EXT);
         if (CollectionUtils.isEmpty(properties.keySet())) {
             throw new MissingAccountException(accountName, user);
         }

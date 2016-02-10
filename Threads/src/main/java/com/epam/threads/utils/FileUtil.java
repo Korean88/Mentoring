@@ -29,7 +29,9 @@ public class FileUtil {
         Properties properties = new Properties();
         try {
             if (lock.isLocked()) {
-                LOGGER.warn("locked in read");
+                LOGGER.warn("locked in read: " + Thread.currentThread().getId());
+            } else {
+                LOGGER.warn("not locked in read: " + Thread.currentThread().getId());
             }
             lock.tryLock(2, TimeUnit.SECONDS);
             LOGGER.debug("read from properties...");
@@ -52,7 +54,9 @@ public class FileUtil {
         if (CollectionUtils.isNotEmpty(properties.keySet())) {
             try {
                 if (lock.isLocked()) {
-                    LOGGER.warn("locked in write");
+                    LOGGER.warn("locked in write: " + Thread.currentThread().getId());
+                } else {
+                    LOGGER.warn("not locked in write: " + Thread.currentThread().getId());
                 }
                 lock.tryLock(2, TimeUnit.SECONDS);
                 LOGGER.debug("writing to file...");
