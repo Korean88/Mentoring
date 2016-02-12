@@ -1,9 +1,12 @@
 package com.epam.threads.run;
 
+import com.epam.threads.config.SpringConfig;
 import com.epam.threads.model.User;
 import com.epam.threads.service.CurrencyExchange;
 import com.google.common.collect.Sets;
 import org.apache.log4j.Logger;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -18,33 +21,86 @@ public class Runner {
     private static final String ACCOUNT_NAME1 = "Black01";
     private static final String ACCOUNT_NAME2 = "Jackson01";
     private static final String ACCOUNT_NAME3 = "Smith01";
-    private static final String ACCOUNT_NAME4 = "Stewart01";
 
     public static void main(String[] args) {
         User mrBlack = createUserWithSingleAccount(ACCOUNT_NAME1, 1, "Jack Black");
         User mrJackson = createUserWithSingleAccount(ACCOUNT_NAME2, 2, "Peter Jackson");
         User mrsSmith = createUserWithSingleAccount(ACCOUNT_NAME3, 3, "Barbara Smith");
-        User msStewart = createUserWithSingleAccount(ACCOUNT_NAME4, 4, "Jessica Stewart");
+        ApplicationContext ctx = new AnnotationConfigApplicationContext(SpringConfig.class);
+        //-----------Black----------
+        UserRunnable mrBlackRunnable1 = (UserRunnable) ctx.getBean(SpringConfig.USER_RUNNABLE);
+        mrBlackRunnable1.setAccountName(ACCOUNT_NAME1);
+        mrBlackRunnable1.setCurrencyExchange(CurrencyExchange.EUR_KZT);
+        mrBlackRunnable1.setUser(mrBlack);
 
-        Runnable thread1 = new UserThread(mrBlack, ACCOUNT_NAME1, CurrencyExchange.EUR_KZT);
-//        Runnable thread2 = new UserThread(mrJackson, ACCOUNT_NAME2, CurrencyExchange.USD_EUR);
-//        Runnable thread3 = new UserThread(mrsSmith, ACCOUNT_NAME3, CurrencyExchange.EUR_USD);
-//        Runnable thread4 = new UserThread(msStewart, ACCOUNT_NAME4, CurrencyExchange.KZT_EUR);
-        Runnable thread5 = new UserThread(mrBlack, ACCOUNT_NAME1, CurrencyExchange.USD_KZT);
-//        Runnable thread6 = new UserThread(mrJackson, ACCOUNT_NAME2, CurrencyExchange.KZT_USD);
-//        Runnable thread7 = new UserThread(mrsSmith, ACCOUNT_NAME3, CurrencyExchange.USD_EUR);
-//        Runnable thread8 = new UserThread(msStewart, ACCOUNT_NAME4, CurrencyExchange.EUR_KZT);
-        Runnable thread9 = new UserThread(mrBlack, ACCOUNT_NAME1, CurrencyExchange.USD_EUR);
+        UserRunnable mrBlackRunnable2 = (UserRunnable) ctx.getBean(SpringConfig.USER_RUNNABLE);
+        mrBlackRunnable2.setAccountName(ACCOUNT_NAME1);
+        mrBlackRunnable2.setCurrencyExchange(CurrencyExchange.USD_KZT);
+        mrBlackRunnable2.setUser(mrBlack);
+
+        UserRunnable mrBlackRunnable3 = (UserRunnable) ctx.getBean(SpringConfig.USER_RUNNABLE);
+        mrBlackRunnable3.setAccountName(ACCOUNT_NAME1);
+        mrBlackRunnable3.setCurrencyExchange(CurrencyExchange.KZT_EUR);
+        mrBlackRunnable3.setUser(mrBlack);
+
+        UserRunnable mrBlackRunnable4 = (UserRunnable) ctx.getBean(SpringConfig.USER_RUNNABLE);
+        mrBlackRunnable4.setAccountName(ACCOUNT_NAME1);
+        mrBlackRunnable4.setCurrencyExchange(CurrencyExchange.USD_EUR);
+        mrBlackRunnable4.setUser(mrBlack);
+        //----------Jackson-------------
+        UserRunnable mrJacksonRunnable1 = (UserRunnable) ctx.getBean(SpringConfig.USER_RUNNABLE);
+        mrJacksonRunnable1.setAccountName(ACCOUNT_NAME2);
+        mrJacksonRunnable1.setCurrencyExchange(CurrencyExchange.USD_EUR);
+        mrJacksonRunnable1.setUser(mrJackson);
+
+        UserRunnable mrJacksonRunnable2 = (UserRunnable) ctx.getBean(SpringConfig.USER_RUNNABLE);
+        mrJacksonRunnable2.setAccountName(ACCOUNT_NAME2);
+        mrJacksonRunnable2.setCurrencyExchange(CurrencyExchange.USD_KZT);
+        mrJacksonRunnable2.setUser(mrJackson);
+
+        UserRunnable mrJacksonRunnable3 = (UserRunnable) ctx.getBean(SpringConfig.USER_RUNNABLE);
+        mrJacksonRunnable3.setAccountName(ACCOUNT_NAME2);
+        mrJacksonRunnable3.setCurrencyExchange(CurrencyExchange.KZT_EUR);
+        mrJacksonRunnable3.setUser(mrJackson);
+
+        UserRunnable mrJacksonRunnable4 = (UserRunnable) ctx.getBean(SpringConfig.USER_RUNNABLE);
+        mrJacksonRunnable4.setAccountName(ACCOUNT_NAME2);
+        mrJacksonRunnable4.setCurrencyExchange(CurrencyExchange.EUR_USD);
+        mrJacksonRunnable4.setUser(mrJackson);
+        //-----------Smith------------
+        UserRunnable mrsSmithRunnable1 = (UserRunnable) ctx.getBean(SpringConfig.USER_RUNNABLE);
+        mrsSmithRunnable1.setAccountName(ACCOUNT_NAME3);
+        mrsSmithRunnable1.setCurrencyExchange(CurrencyExchange.USD_KZT);
+        mrsSmithRunnable1.setUser(mrsSmith);
+
+        UserRunnable mrsSmithRunnable2 = (UserRunnable) ctx.getBean(SpringConfig.USER_RUNNABLE);
+        mrsSmithRunnable2.setAccountName(ACCOUNT_NAME3);
+        mrsSmithRunnable2.setCurrencyExchange(CurrencyExchange.USD_EUR);
+        mrsSmithRunnable2.setUser(mrsSmith);
+
+        UserRunnable mrsSmithRunnable3 = (UserRunnable) ctx.getBean(SpringConfig.USER_RUNNABLE);
+        mrsSmithRunnable3.setAccountName(ACCOUNT_NAME3);
+        mrsSmithRunnable3.setCurrencyExchange(CurrencyExchange.EUR_KZT);
+        mrsSmithRunnable3.setUser(mrsSmith);
+
+        UserRunnable mrsSmithRunnable4 = (UserRunnable) ctx.getBean(SpringConfig.USER_RUNNABLE);
+        mrsSmithRunnable4.setAccountName(ACCOUNT_NAME3);
+        mrsSmithRunnable4.setCurrencyExchange(CurrencyExchange.KZT_EUR);
+        mrsSmithRunnable4.setUser(mrsSmith);
+
         ExecutorService exec = Executors.newCachedThreadPool();
-        exec.submit(thread1);
-//        exec.submit(thread2);
-//        exec.submit(thread3);
-//        exec.submit(thread4);
-        exec.submit(thread5);
-//        exec.submit(thread6);
-//        exec.submit(thread7);
-//        exec.submit(thread8);
-//        exec.submit(thread9);
+        exec.submit(mrBlackRunnable1);
+        exec.submit(mrBlackRunnable2);
+        exec.submit(mrBlackRunnable3);
+        exec.submit(mrBlackRunnable4);
+        exec.submit(mrJacksonRunnable1);
+        exec.submit(mrJacksonRunnable2);
+        exec.submit(mrJacksonRunnable3);
+        exec.submit(mrJacksonRunnable4);
+        exec.submit(mrsSmithRunnable1);
+        exec.submit(mrsSmithRunnable2);
+        exec.submit(mrsSmithRunnable3);
+        exec.submit(mrsSmithRunnable4);
         exec.shutdown();
     }
 

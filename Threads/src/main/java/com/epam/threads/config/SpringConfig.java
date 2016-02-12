@@ -2,6 +2,7 @@ package com.epam.threads.config;
 
 import com.epam.threads.dao.AccountDao;
 import com.epam.threads.dao.AccountDaoImpl;
+import com.epam.threads.run.UserRunnable;
 import com.epam.threads.service.ExchangeService;
 import com.epam.threads.service.ExchangeServiceImpl;
 import org.springframework.context.annotation.Bean;
@@ -17,17 +18,25 @@ import org.springframework.context.annotation.Scope;
 @Configuration
 public class SpringConfig {
 
-    public static final String EXCHANGE_SERVICE_NAME = "exchangeService";
-    public static final String ACCOUNT_DAO = "accountDao";
+    public static final String USER_RUNNABLE = "userRunnable";
 
-    @Bean(name = SpringConfig.EXCHANGE_SERVICE_NAME)
+    @Bean
     @Scope(value = "singleton")
     public ExchangeService createExchangeService() {
-        return new ExchangeServiceImpl();
+        ExchangeService exchangeService = new ExchangeServiceImpl(createAccountDao());
+        return exchangeService;
     }
 
-    @Bean(name = SpringConfig.ACCOUNT_DAO)
+    @Bean
     public AccountDao createAccountDao() {
         return new AccountDaoImpl();
+    }
+
+    @Bean(name = SpringConfig.USER_RUNNABLE)
+    @Scope(value = "prototype")
+    public Runnable createUserRunnable() {
+        UserRunnable userRunnable = new UserRunnable();
+        userRunnable.setExchangeService(createExchangeService());
+        return userRunnable;
     }
 }
