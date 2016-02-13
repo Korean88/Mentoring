@@ -13,10 +13,12 @@ public class Car implements Runnable {
     private static final long MAX_DISTANCE = 10000;
     private final CountDownLatch latch;
     private static final Logger LOGGER = Logger.getLogger(Car.class);
+    public static final int TIMEOUT_SECONDS = 5;
 
     private long friction = 100;
     private long distance;
     private boolean winner;
+    private boolean interrupted;
 
     private static int counter;
     public final int ID = ++counter;
@@ -33,7 +35,12 @@ public class Car implements Runnable {
     @Override
     public void run() {
         try {
-            while (distance < MAX_DISTANCE) {
+            long startTime = System.currentTimeMillis();
+            while (distance < MAX_DISTANCE && !interrupted) {
+                long currentTime = System.currentTimeMillis();
+                if ((currentTime - startTime) / 1000 >= TIMEOUT_SECONDS) {
+                    interrupted = true;
+                }
                 Thread.sleep(friction);
                 distance += 100;
                 LOGGER.info(getName() + " " + distance);
@@ -43,6 +50,9 @@ public class Car implements Runnable {
                 winner = true;
             }
             LOGGER.debug(getName() + ": latch count: " + latch.getCount());
+            if (interrupted) {
+                LOGGER.warn(getName() + " was disqualified due to a timeout of " + TIMEOUT_SECONDS + " seconds");
+            }
             latch.await();
             if (winner) {
                 LOGGER.info("The winner is " + getName() + "!");
@@ -52,4 +62,8 @@ public class Car implements Runnable {
         }
     }
 
+    @Override
+    public String toString() {
+        return getName();
+    }
 }

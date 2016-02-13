@@ -4,7 +4,7 @@
 
 2. When the race is over - output the winner message 'Winner is XXXXX!'.
 
-3. Disqualify one of cars from the race after 5 seconds by interrupting it's thread - car code needs to be modified for that.
+3. Disqualify one of the cars from the race after 5 seconds by interrupting it's thread - car code needs to be modified for that.
 
 public class Car implements Runnable {
        

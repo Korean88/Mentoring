@@ -17,7 +17,8 @@ public class Runner {
         Random random = new Random();
         ExecutorService exec = Executors.newCachedThreadPool();
         for (int i = 0; i < NUMBER_OF_CARS; i++) {
-            exec.execute(new Car(random.nextInt(50), latch));
+            Runnable car = new Car(random.nextInt(50), latch);
+            exec.execute(car);
         }
         exec.shutdown();
     }
