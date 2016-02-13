@@ -14,7 +14,7 @@ public class UserRunnable implements Runnable {
 
     private static final Logger LOG = Logger.getLogger(UserRunnable.class);
 
-    private static final int REPEATS = 5;
+    private static final int REPEATS = 100;
 
     private User user;
     private String accountName;
