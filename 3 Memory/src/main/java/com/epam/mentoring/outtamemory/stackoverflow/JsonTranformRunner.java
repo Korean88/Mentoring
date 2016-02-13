@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Andrey on 16.01.2016.
+ * Created by Andrey Yun on 16.01.2016.
  */
 public class JsonTranformRunner {
 
