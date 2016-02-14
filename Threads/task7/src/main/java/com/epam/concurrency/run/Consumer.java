@@ -23,23 +23,8 @@ public class Consumer implements Runnable {
 
     public void run() {
         while (true) {
-            int initialCounter = resource.getCounter();
-            if (initialCounter >= 5) {
-                LOG.info("Consumer " + ID + ": resource counter before dec: " + initialCounter);
-                int eventualCounter = resource.decreaseCounter();
-                LOG.info("Consumer " + ID + ": resource counter after dec: " + eventualCounter);
-                if (initialCounter != eventualCounter + 1) {
-                    LOG.warn("Consumer " + ID + " initialCounter=" + initialCounter + " BUT eventualCounter=" + eventualCounter);
-                    System.exit(1);
-                }
-            } else {
-                int intermediateCounter = resource.getCounter();
-                LOG.info("Consumer " + ID + ": resource counter < 5: " + intermediateCounter);
-                if (intermediateCounter != initialCounter) {
-                    LOG.warn("Consumer " + ID + " initialCounter=" + initialCounter + " BUT intermediateCounter=" + intermediateCounter);
-                    System.exit(1);
-                }
-            }
+            LOG.info("Consumer " + Thread.currentThread().getName() + " after update:" +
+                    resource.decrementCounterIfGreaterThanFive());
         }
     }
 }

@@ -23,19 +23,8 @@ public class Producer implements Runnable {
 
     public void run() {
         while (true) {
-            int initialCounter = resource.getCounter();
-            if (initialCounter < 5) {
-                LOG.info("Producer " + ID + ": resource counter before inc: " + initialCounter);
-                int eventualCounter = resource.increaseCounter();
-                LOG.info("Producer " + ID + ": resource counter after inc: " + eventualCounter);
-            } else {
-                int intermediateCounter = resource.getCounter();
-                LOG.info("Producer " + ID + ": resource counter >= 5: " + intermediateCounter);
-                if (intermediateCounter != initialCounter) {
-                    LOG.warn("Producer " + ID + " initialCounter=" + initialCounter + " BUT intermediateCounter=" + intermediateCounter);
-                    System.exit(1);
-                }
-            }
+            LOG.info("Producer " + Thread.currentThread().getName() + " after update: " +
+                    resource.incrementCounterIfLessThanTen());
         }
     }
 }

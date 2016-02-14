@@ -14,7 +14,7 @@ public class Runner {
 
     private static final Logger LOG = Logger.getLogger(Runner.class);
 
-    private static final int NUMBER_OF_CONSUMERS_PRODUCERS = 9;
+    private static final int NUMBER_OF_CONSUMERS_PRODUCERS = 10;
 
     public static void main(String[] args) {
         ApplicationContext ctx = new AnnotationConfigApplicationContext(SpringConfig.class);
