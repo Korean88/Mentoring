@@ -4,4 +4,6 @@
 *.settings
 *.classpath
 *.class
-target/**
+*.out
+*.log
+**/target/**
