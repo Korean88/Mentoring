@@ -11,6 +11,7 @@ import java.util.concurrent.CountDownLatch;
 public class Car implements Runnable {
 
     private static final long MAX_DISTANCE = 10000;
+    private static final int DISTANCE_INCREMENT = 100;
     private final CountDownLatch latch;
     private static final Logger LOGGER = Logger.getLogger(Car.class);
     public static final int TIMEOUT_SECONDS = 5;
@@ -21,7 +22,7 @@ public class Car implements Runnable {
     private boolean interrupted;
 
     private static int counter;
-    public final int ID = ++counter;
+    private final int ID = ++counter;
 
     public Car(long friction, CountDownLatch latch) {
         this.friction = friction;
@@ -42,7 +43,7 @@ public class Car implements Runnable {
                     interrupted = true;
                 }
                 Thread.sleep(friction);
-                distance += 100;
+                distance += DISTANCE_INCREMENT;
                 LOGGER.info(getName() + " " + distance);
             }
             latch.countDown();
@@ -58,7 +59,7 @@ public class Car implements Runnable {
                 LOGGER.info("The winner is " + getName() + "!");
             }
         } catch (InterruptedException e) {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage(), e);
         }
     }
 
