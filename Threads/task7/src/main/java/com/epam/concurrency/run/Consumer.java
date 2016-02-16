@@ -9,6 +9,10 @@ public class Consumer extends ResourceUser {
 
     private static final Logger LOG = Logger.getLogger(Consumer.class);
 
+    public Consumer(CommonResource resource) {
+        super(resource);
+    }
+
     @Override
     protected void doAction() {
         LOG.info("Consumer " + Thread.currentThread().getName() + " after update:" +

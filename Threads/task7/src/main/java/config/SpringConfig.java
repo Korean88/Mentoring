@@ -26,16 +26,14 @@ public class SpringConfig {
     @Bean(name = SpringConfig.CONSUMER_BEAN_NAME)
     @Scope(value = "prototype")
     public Consumer createConsumer() {
-        Consumer consumer = new Consumer();
-        consumer.setResource(createResource());
+        Consumer consumer = new Consumer(createResource());
         return consumer;
     }
 
     @Bean(name = SpringConfig.PRODUCER_BEAN_NAME)
     @Scope(value = "prototype")
     public Producer createProducer() {
-        Producer producer = new Producer();
-        producer.setResource(createResource());
+        Producer producer = new Producer(createResource());
         return producer;
     }
 }

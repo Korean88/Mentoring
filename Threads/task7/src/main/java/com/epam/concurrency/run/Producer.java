@@ -9,6 +9,10 @@ public class Producer extends ResourceUser {
 
     private static final Logger LOG = Logger.getLogger(Producer.class);
 
+    public Producer(CommonResource resource) {
+        super(resource);
+    }
+
     @Override
     protected void doAction() {
         LOG.info("Producer " + Thread.currentThread().getName() + " after update: " +

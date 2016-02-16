@@ -5,14 +5,14 @@ package com.epam.concurrency.run;
  */
 public abstract class ResourceUser implements Runnable {
 
-    private CommonResource resource;
-
-    public CommonResource getResource() {
-        return resource;
+    public ResourceUser(CommonResource resource) {
+        this.resource = resource;
     }
 
-    public void setResource(CommonResource resource) {
-        this.resource = resource;
+    private final CommonResource resource;
+
+    public synchronized CommonResource getResource() {
+        return resource;
     }
 
     public void run() {
