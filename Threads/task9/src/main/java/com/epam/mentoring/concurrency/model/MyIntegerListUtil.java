@@ -8,7 +8,7 @@ import java.util.List;
  */
 public class MyIntegerListUtil {
 
-    public static synchronized List<MyInteger> createListOfMyIntegers(Integer...ints) {
+    public static List<MyInteger> createListOfMyIntegers(Integer...ints) {
         List<MyInteger> result = new ArrayList<>();
         for (Integer i : ints) {
             MyInteger myInteger = new MyInteger(i);
