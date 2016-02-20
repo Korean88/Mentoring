@@ -14,10 +14,10 @@ import java.util.stream.IntStream;
  */
 public class QuickSortAction extends RecursiveAction {
 
-    private List<MyInteger> source;
-    private List<MyInteger> destination;
-    private int start;
-    private int end;
+    private final List<MyInteger> source;
+    private final List<MyInteger> destination;
+    private final int start;
+    private final int end;
 
     public QuickSortAction(List<MyInteger> source, List<MyInteger> destination, int start, int end) {
         this.source = source;
@@ -50,8 +50,6 @@ public class QuickSortAction extends RecursiveAction {
             invokeAll(new QuickSortAction(leftList, destination, start, newPivotIdx - 1));
         } else if (rightList.size() > 1) {
             invokeAll(new QuickSortAction(rightList, destination, newPivotIdx + 1, end));
-        } else {
-            return;
         }
     }
 
