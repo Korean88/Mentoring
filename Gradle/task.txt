@@ -1,0 +1,9 @@
+﻿[22.02.2016 14:54:35] Anuar Nurmakanov: Create executable multi-module project with the following structure:
+
+1)      DAO
+2)      Business Logic
+3)      UI (Web) or command line
+
+Make compliable and deployable to Tomcat. In addition to that, I recommend to apply unit tests.
+[22.02.2016 14:57:08] Anuar Nurmakanov: При открытии тянет с файла текст и показывает
+[22.02.2016 14:57:36] Anuar Nurmakanov: gradle - 3 modules, таска для развертывания в Jetty/Tomcat, тесты
