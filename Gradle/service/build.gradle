@@ -1,0 +1,3 @@
+dependencies {
+    compile 'com.mentoring.gradle:dao:1.0-SNAPSHOT'
+}
