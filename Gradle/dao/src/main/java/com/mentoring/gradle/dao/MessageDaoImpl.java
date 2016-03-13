@@ -15,18 +15,12 @@ public class MessageDaoImpl implements MessageDao {
 
     private static final Logger LOG = Logger.getLogger(MessageDaoImpl.class);
     @Override
-    public String retrieveMessageFromFile() throws IOException {
+    public String retrieveMessageFromFile() {
         String res = "";
-        InputStream is = null;
-        try {
-            is = getClass().getClassLoader().getResourceAsStream("messages.txt");
+        try (InputStream is = getClass().getClassLoader().getResourceAsStream("messages.txt")) {
             res = IOUtils.toString(is);
         } catch (IOException e) {
             LOG.error("IO exception", e);
-        } finally {
-            if (is != null) {
-                is.close();
-            }
         }
         return res;
     }
