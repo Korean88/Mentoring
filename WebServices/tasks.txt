@@ -1,0 +1,66 @@
+Task 1
+
+Please, write Rest web services for User directory that provide CRUD operations on User.
+
+User information should contain at least: first name, last name, login and email.
+
+For creation of the user, please, use XML, for user update JSON format.
+
+Create also Rest service to upload and download user logo as Image.
+
+The application should be implemented and deploy on application server.
+
+You can use any Rest implementation (Jersey, Restlet, etc.).
+
+To test your application, please, use jersey Rest client that will cover all operations.
+
+User data can be saved anywhere, database is not required.
+
+
+
+
+
+
+Task 2
+
+In this exercise, you will implement your own simple SOAP Web Service and Client with Java.
+
+Please, implement a simple SOAP Web Service that satisfies the following extract of a WSDL declaration.
+
+…
+
+<message name=”randomNumber”>
+
+      <part name=”lowerBound” type=”xsd:int”/>
+
+      <part name=”upperBound” type=”xsd:int”/>
+
+</message>
+
+<message name=”randomNumberResponse”>
+
+      <part name=”return” type=”xsd:int”/>
+
+</message>
+
+<portType name=”RandomNumberGenerator”/>
+
+     <operation name=”randomNumber” parameterOrder+”lowerBound upperBound”>
+
+          </documentation>
+
+               Returns a random number between given the lower and upper bound.
+
+           </documentation>
+
+           <input message=”tns:randomNumber”/>
+
+           <output message=”tns:randomNumberResponce”/>
+
+     </operation>
+
+</portType>
+
+…
+
+ b) Implement a corresponding client that uses your Web Service to simulate the lottery drawing by requesting six random numbers between 1 and 49.
