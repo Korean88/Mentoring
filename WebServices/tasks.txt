@@ -4,7 +4,7 @@ Please, write Rest web services for User directory that provide CRUD operations 
 
 User information should contain at least: first name, last name, login and email.
 
-For creation of the user, please, use XML, for user update JSON format.
+For creation of the user please use XML, for user update JSON format.
 
 Create also Rest service to upload and download user logo as Image.
 
