@@ -26,14 +26,6 @@ public class UserDaoTest {
         assertThat(user, is(nullValue()));
     }
 
-//    @Test
-//    public void shouldConvertUserToXml() throws JAXBException {
-//        String res = UserHelper.convertUserToXml("eve");
-//        assertThat(res, not(nullValue()));
-//        assertThat(res, startsWith("<?xml "));
-//        System.out.println(res);
-//    }
-
     @Test
     public void shouldConvertXmlToUser() {
         //GIVEN

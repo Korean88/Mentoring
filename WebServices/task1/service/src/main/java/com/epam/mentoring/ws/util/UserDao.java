@@ -175,25 +175,4 @@ public class UserDao {
         return new User();
     }
 
-//    public static String convertUserToXml(String login) {
-//        User user = findUserByLogin(login);
-//        return convertUserToXml(user);
-//    }
-//
-//    public static String convertUserToXml(User user) {
-//        String res = null;
-//        if (user != null) {
-//            try (ByteArrayOutputStream os = new ByteArrayOutputStream()) {
-//                JAXBContext jaxbContext = JAXBContext.newInstance(User.class);
-//                Marshaller marshaller = jaxbContext.createMarshaller();
-//                marshaller.marshal(user, os);
-//                res = new String(os.toByteArray());
-//            } catch (IOException e) {
-//                LOGGER.error("Could not convert user to XML", e);
-//            } catch (JAXBException e) {
-//                LOGGER.error("Could not marshall user", e);
-//            }
-//        }
-//        return res;
-//    }
 }
