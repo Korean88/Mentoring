@@ -2,14 +2,16 @@ package com.epam.mentoring.ws.model;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
 
 /**
  * Created by Andrey on 21.03.2016.
  */
 
 @XmlRootElement
-public class User {
+public class User implements Serializable {
 
+    private static final long serialVersionUID = -6498051609265011424L;
     private String firstName;
     private String lastName;
     private String login;
