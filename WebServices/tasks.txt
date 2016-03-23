@@ -24,7 +24,7 @@ User data can be saved anywhere, database is not required.
 Task 2
 
 In this exercise, you will implement your own simple SOAP Web Service and Client with Java.
-
+	
 Please, implement a simple SOAP Web Service that satisfies the following extract of a WSDL declaration.
 
 …
