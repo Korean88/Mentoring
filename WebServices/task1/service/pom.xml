@@ -14,7 +14,7 @@
         <version.mvn.compiler>3.2</version.mvn.compiler>
         <version.mvn.war.plugin>2.6</version.mvn.war.plugin>
         <version.jersey>2.15</version.jersey>
-        <version.apache.commons>1.3.2</version.apache.commons>
+        <!--<version.apache.commons>1.3.2</version.apache.commons>-->
     </properties>
 
     <dependencies>
@@ -29,10 +29,15 @@
             <version>${version.jersey}</version>
         </dependency>
         <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>${version.apache.commons}</version>
+            <groupId>org.glassfish.jersey.media</groupId>
+            <artifactId>jersey-media-multipart</artifactId>
+            <version>${version.jersey}</version>
         </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.apache.commons</groupId>-->
+            <!--<artifactId>commons-io</artifactId>-->
+            <!--<version>${version.apache.commons}</version>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>

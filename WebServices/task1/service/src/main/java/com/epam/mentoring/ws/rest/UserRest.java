@@ -3,6 +3,8 @@ package com.epam.mentoring.ws.rest;
 import com.epam.mentoring.ws.model.User;
 import com.epam.mentoring.ws.util.UserDao;
 import org.apache.log4j.Logger;
+import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
+import org.glassfish.jersey.media.multipart.FormDataParam;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -14,6 +16,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.StreamingOutput;
+import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -24,32 +28,33 @@ import java.net.URISyntaxException;
 public class UserRest {
 
     private static final Logger LOGGER = Logger.getLogger(UserRest.class);
+    public static final String LOGO_EXT = ".jpg";
 
     @GET
     @Path("/all")
-    @Produces({MediaType.APPLICATION_XML})
+    @Produces(MediaType.APPLICATION_XML)
     public User[] getAllUsersXml() {
         return UserDao.getAllUsers();
     }
 
     @GET
     @Path("/all-json")
-    @Produces({MediaType.APPLICATION_JSON})
+    @Produces(MediaType.APPLICATION_JSON)
     public User[] getAllUsersJson() {
         return UserDao.getAllUsers();
     }
 
     @GET
     @Path("/user/{login}")
-    @Produces({MediaType.APPLICATION_XML})
+    @Produces(MediaType.APPLICATION_XML)
     public User findUserByLogin(@PathParam("login") String login) {
         return UserDao.findUserByLogin(login);
     }
 
     @POST
     @Path("/create")
-    @Produces({MediaType.TEXT_PLAIN})
-    @Consumes({MediaType.APPLICATION_XML})
+    @Produces(MediaType.TEXT_PLAIN)
+    @Consumes(MediaType.APPLICATION_XML)
     public Response createUser(String userXml) throws URISyntaxException {
         User user = UserDao.convertXmlToUser(userXml);
         UserDao.addNewUser(user);
@@ -58,8 +63,8 @@ public class UserRest {
 
     @PUT
     @Path("/update/{login}")
-    @Produces({MediaType.TEXT_PLAIN})
-    @Consumes({MediaType.APPLICATION_JSON})
+    @Produces(MediaType.TEXT_PLAIN)
+    @Consumes(MediaType.APPLICATION_JSON)
     public Response updateUser(@PathParam("login") String login, User user) {
         boolean updated = UserDao.updateUser(login, user);
         if (updated) {
@@ -71,8 +76,8 @@ public class UserRest {
 
     @DELETE
     @Path("/delete/{login}")
-    @Produces({MediaType.TEXT_PLAIN})
-    @Consumes({MediaType.APPLICATION_JSON})
+    @Produces(MediaType.TEXT_PLAIN)
+    @Consumes(MediaType.APPLICATION_JSON)
     public Response deleteUser(@PathParam("login") String login) {
         boolean deleted = UserDao.deleteUser(login);
         if (deleted) {
@@ -82,4 +87,28 @@ public class UserRest {
         }
     }
 
+    @POST
+    @Path("/image/upload")
+    @Produces(MediaType.TEXT_PLAIN)
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    public Response uploadImage(@FormDataParam("image") InputStream is,
+                                @FormDataParam("image") FormDataContentDisposition contentDisposition) {
+        String filename = contentDisposition.getFileName();
+        boolean uploaded = UserDao.uploadUserLogo(is, filename);
+        if (uploaded) {
+            return Response.ok("Upload success", MediaType.TEXT_PLAIN).build();
+        } else {
+            return Response.notModified().build();
+        }
+    }
+
+    @GET
+    @Path("/image/download/{login}")
+    @Produces(MediaType.APPLICATION_OCTET_STREAM)
+    public Response downloadFile(@PathParam("login") String login) {
+        StreamingOutput so = UserDao.getStreamingOutput(login + LOGO_EXT);
+        return Response.ok(so, MediaType.APPLICATION_OCTET_STREAM)
+                .header("content-disposition","attachment; filename = " + login + LOGO_EXT)
+                .build();
+    }
 }

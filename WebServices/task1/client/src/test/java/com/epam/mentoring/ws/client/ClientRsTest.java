@@ -51,4 +51,14 @@ public class ClientRsTest {
         assertThat(afterDelete, is(nullValue()));
     }
 
+    @Test
+    public void shouldStoreAndDownloadImage() {
+        String filename = "eve";
+        boolean uploaded = client.uploadImage(filename + ClientRs.LOGO_EXT);
+        assertThat(uploaded, is(true));
+
+        boolean downloaded = client.downloadImage(filename);
+        assertThat(downloaded, is(true));
+    }
+
 }
