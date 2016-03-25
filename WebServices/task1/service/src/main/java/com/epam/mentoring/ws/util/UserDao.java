@@ -6,10 +6,6 @@ import com.google.common.collect.Lists;
 import org.apache.log4j.Logger;
 
 import javax.ws.rs.core.StreamingOutput;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -184,19 +180,6 @@ public class UserDao {
             }
         }
         return false;
-    }
-
-    public static User convertXmlToUser(String userXml) {
-        try (InputStream is = new ByteArrayInputStream(userXml.getBytes())) {
-            JAXBContext jaxbContext = JAXBContext.newInstance(User.class);
-            Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-            return (User) unmarshaller.unmarshal(is);
-        } catch (JAXBException e) {
-            LOGGER.error("Could not unmarshall user", e);
-        } catch (IOException e) {
-            LOGGER.error("Could not read input xml", e);
-        }
-        return new User();
     }
 
     public static boolean uploadUserLogo(InputStream is, String filename) {

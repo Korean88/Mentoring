@@ -26,23 +26,4 @@ public class UserDaoTest {
         assertThat(user, is(nullValue()));
     }
 
-    @Test
-    public void shouldConvertXmlToUser() {
-        //GIVEN
-        String email = "eve@evil.com";
-        String firstName = "Eve";
-        String lastName = "Nigel";
-        String login = "eve";
-        String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>" +
-                "<user><email>" + email + "</email><firstName>" + firstName + "</firstName>" +
-                "<lastName>" + lastName + "</lastName><login>" + login + "</login></user>";
-        //WHEN
-        User user = UserDao.convertXmlToUser(xml);
-        //THEN
-        assertThat(user.getEmail(), equalTo(email));
-        assertThat(user.getFirstName(), equalTo(firstName));
-        assertThat(user.getLastName(), equalTo(lastName));
-        assertThat(user.getLogin(), equalTo(login));
-    }
-
 }

@@ -55,8 +55,7 @@ public class UserRest {
     @Path("/create")
     @Produces(MediaType.TEXT_PLAIN)
     @Consumes(MediaType.APPLICATION_XML)
-    public Response createUser(String userXml) throws URISyntaxException {
-        User user = UserDao.convertXmlToUser(userXml);
+    public Response createUser(User user) throws URISyntaxException {
         UserDao.addNewUser(user);
         return Response.created(new URI("http://localhost:8081/task1/user/" + user.getLogin())).build();
     }
