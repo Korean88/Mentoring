@@ -1,6 +1,7 @@
 package com.epam.mentoring.model;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
 import java.util.List;
 
 /**
@@ -8,7 +9,7 @@ import java.util.List;
  */
 
 @Entity(name = "EMPLOYEE")
-public class Employee {
+public class Employee implements IdentifiedEntity {
 
     private Integer id;
     private Address address;
@@ -16,13 +17,14 @@ public class Employee {
     private List<Project> projects;
     private Unit unit;
 
-
+    @Override
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer getId() {
         return id;
     }
 
+    @Override
     public void setId(Integer id) {
         this.id = id;
     }
@@ -36,7 +38,7 @@ public class Employee {
         this.address = address;
     }
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     public EmployeePersonalInfo getPersonalInfo() {
         return personalInfo;
     }
@@ -54,7 +56,7 @@ public class Employee {
         this.projects = projects;
     }
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "UNIT_ID")
     public Unit getUnit() {
         return unit;
@@ -62,5 +64,16 @@ public class Employee {
 
     public void setUnit(Unit unit) {
         this.unit = unit;
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "id=" + id +
+                ", address=" + address +
+                ", personalInfo=" + personalInfo +
+                ", projects=" + projects +
+                ", unit=" + unit +
+                '}';
     }
 }

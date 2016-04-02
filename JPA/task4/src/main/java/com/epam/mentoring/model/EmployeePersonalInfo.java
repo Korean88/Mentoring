@@ -7,29 +7,40 @@ import javax.persistence.*;
  */
 
 @Entity(name = "EMPLOYEE_PERSONAL_INFO")
-public class EmployeePersonalInfo {
+public class EmployeePersonalInfo implements IdentifiedEntity {
 
     private Integer id;
-    private Employee employee;
+    private String firstName;
+    private String lastName;
     private String ssn;
+    private EmployeeStatus status;
 
+    @Override
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer getId() {
         return id;
     }
 
+    @Override
     public void setId(Integer id) {
         this.id = id;
     }
 
-    @OneToOne(mappedBy = "personalInfo")
-    public Employee getEmployee() {
-        return employee;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getSsn() {
@@ -38,5 +49,25 @@ public class EmployeePersonalInfo {
 
     public void setSsn(String ssn) {
         this.ssn = ssn;
+    }
+
+    @Enumerated(EnumType.STRING)
+    public EmployeeStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(EmployeeStatus status) {
+        this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "EmployeePersonalInfo{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", ssn='" + ssn + '\'' +
+                ", status=" + status +
+                '}';
     }
 }

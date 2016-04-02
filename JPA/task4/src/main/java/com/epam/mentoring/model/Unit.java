@@ -8,18 +8,20 @@ import java.util.List;
  */
 
 @Entity(name = "UNIT")
-public class Unit {
+public class Unit implements IdentifiedEntity {
 
     private Integer id;
     private String name;
     private List<Employee> employees;
 
+    @Override
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer getId() {
         return id;
     }
 
+    @Override
     public void setId(Integer id) {
         this.id = id;
     }
@@ -39,5 +41,14 @@ public class Unit {
 
     public void setEmployees(List<Employee> employees) {
         this.employees = employees;
+    }
+
+    @Override
+    public String toString() {
+        return "Unit{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", employees=" + employees +
+                '}';
     }
 }

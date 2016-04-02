@@ -13,7 +13,7 @@ public class Address {
     private String city;
     private String street;
     private String houseNumber;
-    private short apartmentNumber;
+    private String apartment;
 
     public String getCountry() {
         return country;
@@ -47,11 +47,11 @@ public class Address {
         this.houseNumber = houseNumber;
     }
 
-    public short getApartmentNumber() {
-        return apartmentNumber;
+    public String getApartment() {
+        return apartment;
     }
 
-    public void setApartmentNumber(short apartmentNumber) {
-        this.apartmentNumber = apartmentNumber;
+    public void setApartment(String apartment) {
+        this.apartment = apartment;
     }
 }

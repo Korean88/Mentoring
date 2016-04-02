@@ -8,23 +8,25 @@ import java.util.List;
  */
 
 @Entity(name = "PROJECT")
-public class Project {
+public class Project implements IdentifiedEntity {
 
     private Integer id;
     private String name;
-    private boolean internal;
+    private Boolean internal;
     private List<Employee> employees;
 
+    @Override
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer getId() {
         return id;
     }
 
+    @Override
     public void setId(Integer id) {
         this.id = id;
     }
-
+    @javax.jdo.annotations.Index(name = "IDX_PROJ_NAME_UNIQ", unique = "true")
     public String getName() {
         return name;
     }
@@ -33,15 +35,15 @@ public class Project {
         this.name = name;
     }
 
-    public boolean isInternal() {
+    public Boolean isInternal() {
         return internal;
     }
 
-    public void setInternal(boolean internal) {
+    public void setInternal(Boolean internal) {
         this.internal = internal;
     }
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "EMPLOYEE_PROJECT",
             joinColumns = @JoinColumn(name = "PROJECT_ID", referencedColumnName = "ID"),
             inverseJoinColumns = @JoinColumn(name = "EMPLOYEE_ID", referencedColumnName = "ID"))
@@ -51,5 +53,14 @@ public class Project {
 
     public void setEmployees(List<Employee> employees) {
         this.employees = employees;
+    }
+
+    @Override
+    public String toString() {
+        return "Project{" +
+                "name='" + name + '\'' +
+                ", internal=" + internal +
+                ", employees=" + employees +
+                '}';
     }
 }
