@@ -1,9 +1,14 @@
 package com.epam.mentoring.config;
 
-import com.epam.mentoring.dao.*;
+import com.epam.mentoring.dao.EmployeeDaoImpl;
+import com.epam.mentoring.dao.EntityDao;
+import com.epam.mentoring.dao.EntityManagerProvider;
+import com.epam.mentoring.dao.ProjectDaoImpl;
+import com.epam.mentoring.dao.UnitDaoImpl;
 import com.epam.mentoring.model.Employee;
 import com.epam.mentoring.model.Project;
 import com.epam.mentoring.model.Unit;
+import com.epam.mentoring.util.JsonConverter;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,6 +25,7 @@ public class SpringConfig {
     public static final String PROJECT_DAO = "projectDao";
     public static final String UNIT_DAO = "unitDao";
     public static final String EMPLOYEE_DAO = "employeeDao";
+    public static final String JSON_CONVERTER = "jsonConverter";
 
     @Bean(name = ENTITY_MANAGER_PROVIDER)
     public EntityManagerProvider getEntityManagerProvider() {
@@ -43,4 +49,10 @@ public class SpringConfig {
     public EmployeeDaoImpl createEmployeeDao() {
         return new EmployeeDaoImpl(Employee.class);
     }
+
+    @Bean(name = JSON_CONVERTER)
+    public JsonConverter createJsonConverter() {
+        return new JsonConverter();
+    }
+
 }

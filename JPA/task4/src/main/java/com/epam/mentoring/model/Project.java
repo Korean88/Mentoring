@@ -1,6 +1,17 @@
 package com.epam.mentoring.model;
 
-import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Convert;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import java.util.List;
 
 /**
@@ -8,10 +19,12 @@ import java.util.List;
  */
 
 @Entity(name = "PROJECT")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Project implements IdentifiedEntity {
 
     private Integer id;
     private String name;
+    @Convert(converter = BooleanValueConverter.class)
     private Boolean internal;
     private List<Employee> employees;
 
