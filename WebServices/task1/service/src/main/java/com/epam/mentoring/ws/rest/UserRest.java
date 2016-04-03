@@ -2,7 +2,6 @@ package com.epam.mentoring.ws.rest;
 
 import com.epam.mentoring.ws.model.User;
 import com.epam.mentoring.ws.util.UserDao;
-import org.apache.log4j.Logger;
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataParam;
 
@@ -24,35 +23,34 @@ import java.net.URISyntaxException;
 /**
  * Created by Andrey on 22.03.2016.
  */
-@Path("/")
+@Path("/users")
 public class UserRest {
 
-    private static final Logger LOGGER = Logger.getLogger(UserRest.class);
     public static final String LOGO_EXT = ".jpg";
 
     @GET
-    @Path("/all")
+    @Path("/")
     @Produces(MediaType.APPLICATION_XML)
     public User[] getAllUsersXml() {
         return UserDao.getAllUsers();
     }
 
-    @GET
-    @Path("/all-json")
-    @Produces(MediaType.APPLICATION_JSON)
-    public User[] getAllUsersJson() {
-        return UserDao.getAllUsers();
-    }
+//    @GET
+//    @Path("/")
+//    @Produces(MediaType.APPLICATION_JSON)
+//    public User[] getAllUsersJson() {
+//        return UserDao.getAllUsers();
+//    }
 
     @GET
-    @Path("/user/{login}")
+    @Path("/{login}")
     @Produces(MediaType.APPLICATION_XML)
     public User findUserByLogin(@PathParam("login") String login) {
         return UserDao.findUserByLogin(login);
     }
 
     @POST
-    @Path("/create")
+    @Path("/")
     @Produces(MediaType.TEXT_PLAIN)
     @Consumes(MediaType.APPLICATION_XML)
     public Response createUser(User user) throws URISyntaxException {
@@ -61,7 +59,7 @@ public class UserRest {
     }
 
     @PUT
-    @Path("/update/{login}")
+    @Path("/{login}")
     @Produces(MediaType.TEXT_PLAIN)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response updateUser(@PathParam("login") String login, User user) {
@@ -74,7 +72,7 @@ public class UserRest {
     }
 
     @DELETE
-    @Path("/delete/{login}")
+    @Path("/{login}")
     @Produces(MediaType.TEXT_PLAIN)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response deleteUser(@PathParam("login") String login) {
@@ -87,7 +85,7 @@ public class UserRest {
     }
 
     @POST
-    @Path("/image/upload")
+    @Path("/image")
     @Produces(MediaType.TEXT_PLAIN)
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     public Response uploadImage(@FormDataParam("image") InputStream is,
@@ -102,7 +100,7 @@ public class UserRest {
     }
 
     @GET
-    @Path("/image/download/{login}")
+    @Path("/image/{login}")
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
     public Response downloadFile(@PathParam("login") String login) {
         StreamingOutput so = UserDao.getStreamingOutput(login + LOGO_EXT);

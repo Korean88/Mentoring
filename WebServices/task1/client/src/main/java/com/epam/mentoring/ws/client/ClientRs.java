@@ -26,7 +26,7 @@ import java.net.URL;
  */
 public class ClientRs {
 
-    private static final String BASE_URI = "http://localhost:8081/task1";
+    private static final String BASE_URI = "http://localhost:8081/task1/users";
     private static final Logger LOGGER = Logger.getLogger(ClientRs.class);
     public static final Client client = ClientBuilder.newClient();
     private static final int BUFFER_SIZE = 1024;
@@ -34,7 +34,6 @@ public class ClientRs {
 
     public User[] getAllUsers() {
         return client.target(BASE_URI)
-                .path("all")
                 .request()
                 .accept(MediaType.APPLICATION_XML)
                 .get(new GenericType<User[]>() {
@@ -43,7 +42,6 @@ public class ClientRs {
 
     public User findUser(String login) {
         return client.target(BASE_URI)
-                .path("user")
                 .path(login)
                 .request()
                 .accept(MediaType.APPLICATION_XML)
@@ -53,7 +51,6 @@ public class ClientRs {
 
     public boolean createUser(String xml) {
         Response response = client.target(BASE_URI)
-                .path("create")
                 .request()
                 .post(Entity.xml(xml), Response.class);
         if (response.getStatus() == Response.Status.CREATED.getStatusCode()) {
@@ -67,7 +64,6 @@ public class ClientRs {
 
     public boolean updateUser(String login, String json) {
         Response response = client.target(BASE_URI)
-                .path("update")
                 .path(login)
                 .request()
                 .put(Entity.json(json), Response.class);
@@ -83,7 +79,6 @@ public class ClientRs {
 
     public boolean deleteUser(String login) {
         Response response = client.target(BASE_URI)
-                .path("delete")
                 .path(login)
                 .request()
                 .delete();
@@ -112,7 +107,6 @@ public class ClientRs {
                 .bodyPart(filePart);
         Response response = client.target(BASE_URI)
                 .path("image")
-                .path("upload")
                 .request()
                 .post(Entity.entity(multipartEntity, MediaType.MULTIPART_FORM_DATA), Response.class);
         if (response.getStatus() == Response.Status.OK.getStatusCode()) {
@@ -127,7 +121,6 @@ public class ClientRs {
     public boolean downloadImage(String filename) {
         Response response = client.target(BASE_URI)
                 .path("image")
-                .path("download")
                 .path(filename)
                 .request()
                 .accept(MediaType.APPLICATION_OCTET_STREAM_TYPE)
