@@ -2,7 +2,6 @@ package com.epam.mentoring.config;
 
 import com.epam.mentoring.dao.EmployeeDaoImpl;
 import com.epam.mentoring.dao.EntityDao;
-import com.epam.mentoring.dao.EntityManagerProvider;
 import com.epam.mentoring.dao.ProjectDaoImpl;
 import com.epam.mentoring.dao.UnitDaoImpl;
 import com.epam.mentoring.model.Project;
@@ -14,24 +13,40 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.LocalEntityManagerFactoryBean;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+import javax.persistence.EntityManagerFactory;
 
 /**
  * Created by Andrey Yun on 31.03.2016.
  */
 
 @Configuration
+@EnableTransactionManagement
 public class SpringConfig {
 
-    public static final String ENTITY_MANAGER_PROVIDER = "entityManagerProvider";
     public static final String PROJECT_DAO = "projectDao";
     public static final String UNIT_DAO = "unitDao";
     public static final String EMPLOYEE_DAO = "employeeDao";
     public static final String JSON_CONVERTER = "jsonConverter";
     public static final String EMPLOYEE_SERVICE = "employeeService";
+    private static final String EMBEDDED_DB_PATH = "db/employees.odb";
 
-    @Bean(name = ENTITY_MANAGER_PROVIDER)
-    public EntityManagerProvider getEntityManagerProvider() {
-        return new EntityManagerProvider();
+    @Bean
+    public LocalEntityManagerFactoryBean createEntityManagerFactory() {
+        LocalEntityManagerFactoryBean lemfb = new LocalEntityManagerFactoryBean();
+        lemfb.setPersistenceUnitName(EMBEDDED_DB_PATH);
+        return lemfb;
+    }
+
+    @Bean
+    public PlatformTransactionManager transactionManager(EntityManagerFactory emf){
+        JpaTransactionManager transactionManager = new JpaTransactionManager();
+        transactionManager.setEntityManagerFactory(emf);
+        return transactionManager;
     }
 
     @Bean(name = PROJECT_DAO)
