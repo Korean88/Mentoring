@@ -8,7 +8,7 @@ import com.epam.mentoring.model.Unit;
 
 public class UnitDaoImpl extends EntityDao<Unit> {
 
-    public UnitDaoImpl(Class<Unit> unitClass) {
-        super(unitClass);
+    public UnitDaoImpl() {
+        super(Unit.class);
     }
 }

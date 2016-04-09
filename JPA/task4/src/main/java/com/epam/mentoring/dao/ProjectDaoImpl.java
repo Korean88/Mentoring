@@ -8,8 +8,8 @@ import com.epam.mentoring.model.Project;
 
 public class ProjectDaoImpl extends EntityDao<Project> {
 
-    public ProjectDaoImpl(Class<Project> projectClass) {
-        super(projectClass);
+    public ProjectDaoImpl() {
+        super(Project.class);
     }
 
 }

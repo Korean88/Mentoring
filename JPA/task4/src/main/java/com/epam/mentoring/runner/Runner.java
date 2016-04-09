@@ -8,6 +8,8 @@ import com.epam.mentoring.model.Employee;
 import com.epam.mentoring.model.EmployeePersonalInfo;
 import com.epam.mentoring.model.Project;
 import com.epam.mentoring.model.Unit;
+import com.epam.mentoring.service.EmployeeService;
+import com.epam.mentoring.service.EmployeeServiceImpl;
 import com.epam.mentoring.util.JsonConverter;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -22,6 +24,7 @@ public class Runner {
         EntityDao<Project> projectDao = ctx.getBean(SpringConfig.PROJECT_DAO, EntityDao.class);
         EntityDao<Unit> unitDao = ctx.getBean(SpringConfig.UNIT_DAO, EntityDao.class);
         EmployeeDaoImpl employeeDao = ctx.getBean(SpringConfig.EMPLOYEE_DAO, EmployeeDaoImpl.class);
+        EmployeeService employeeService = ctx.getBean(SpringConfig.EMPLOYEE_SERVICE, EmployeeServiceImpl.class);
         JsonConverter converter = ctx.getBean(SpringConfig.JSON_CONVERTER, JsonConverter.class);
 
         String projectJson = "{\"id\":1,\"name\":\"Project1\",\"internal\":false}";
@@ -42,8 +45,8 @@ public class Runner {
         employee.setPersonalInfo(personalInfo);
         employeeDao.add(employee);
 
-        employeeDao.assignEmployeeForProject(employee.getId(), project.getId());
-        employeeDao.addEmployeeToUnit(employee.getId(), unit.getId());
+        employeeService.assignEmployeeForProject(employee.getId(), project.getId());
+        employeeService.addEmployeeToUnit(employee.getId(), unit.getId());
 
         ctx.close();
     }

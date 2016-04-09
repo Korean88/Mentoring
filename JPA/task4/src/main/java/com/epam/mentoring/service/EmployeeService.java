@@ -1,11 +1,12 @@
-package com.epam.mentoring.dao;
+package com.epam.mentoring.service;
 
 /**
- * Created by Andrey Yun on 31.03.2016.
+ * Created by Andrey on 09.04.2016.
  */
-public interface EmployeeDao {
+public interface EmployeeService {
 
     boolean addEmployeeToUnit(Integer employeeId, Integer unitId);
+
     boolean assignEmployeeForProject(Integer employeeId, Integer projectId);
 
 }
