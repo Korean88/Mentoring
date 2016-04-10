@@ -74,4 +74,24 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
         return true;
     }
+
+    @Override
+    public Employee add(Employee entity) {
+        return employeeDao.add(entity);
+    }
+
+    @Override
+    public Employee find(Integer id) {
+        return employeeDao.find(id);
+    }
+
+    @Override
+    public boolean delete(Integer id) {
+        return employeeDao.delete(id);
+    }
+
+    @Override
+    public boolean update(Integer id, Employee entity) {
+        return employeeDao.update(id, entity);
+    }
 }

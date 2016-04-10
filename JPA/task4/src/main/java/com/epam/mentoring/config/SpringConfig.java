@@ -6,8 +6,12 @@ import com.epam.mentoring.dao.ProjectDaoImpl;
 import com.epam.mentoring.dao.UnitDaoImpl;
 import com.epam.mentoring.model.Project;
 import com.epam.mentoring.model.Unit;
+import com.epam.mentoring.runner.EntityManipulator;
 import com.epam.mentoring.service.EmployeeService;
 import com.epam.mentoring.service.EmployeeServiceImpl;
+import com.epam.mentoring.service.EntityService;
+import com.epam.mentoring.service.ProjectServiceImpl;
+import com.epam.mentoring.service.UnitServiceImpl;
 import com.epam.mentoring.util.JsonConverter;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Bean;
@@ -33,6 +37,7 @@ public class SpringConfig {
     public static final String EMPLOYEE_DAO = "employeeDao";
     public static final String JSON_CONVERTER = "jsonConverter";
     public static final String EMPLOYEE_SERVICE = "employeeService";
+    public static final String ENTITY_MANIPULATOR = "entityManipulator";
     private static final String EMBEDDED_DB_PATH = "db/employees.odb";
 
     @Bean
@@ -77,4 +82,18 @@ public class SpringConfig {
         return new EmployeeServiceImpl();
     }
 
+    @Bean
+    public EntityService<Project> createProjectService() {
+        return new ProjectServiceImpl();
+    }
+
+    @Bean
+    public EntityService<Unit> createUnitService() {
+        return new UnitServiceImpl();
+    }
+
+    @Bean(name = ENTITY_MANIPULATOR)
+    public EntityManipulator createEntityManipulator() {
+        return new EntityManipulator();
+    }
 }

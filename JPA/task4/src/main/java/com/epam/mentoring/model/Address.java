@@ -54,4 +54,15 @@ public class Address {
     public void setApartment(String apartment) {
         this.apartment = apartment;
     }
+
+    @Override
+    public String toString() {
+        return "Address{" +
+                "country='" + country + '\'' +
+                ", city='" + city + '\'' +
+                ", street='" + street + '\'' +
+                ", houseNumber='" + houseNumber + '\'' +
+                ", apartment='" + apartment + '\'' +
+                '}';
+    }
 }
