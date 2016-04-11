@@ -1,0 +1,87 @@
+﻿Task1
+
+Please use spring task templates https://github.com/trainings?tab=repositories
+
+Создать конфигурационные файлы:
+
+         Для repositorу классов
+         Для service классов
+        Для data initializers классов
+
+
+
+Task2
+
+Please use spring task templates https://github.com/trainings?tab=repositories
+
+Создать корневой (основной) конфигурационный файл, подключить файлы из п1.
+
+
+
+Task3
+
+Please use spring task templates https://github.com/trainings?tab=repositories
+
+Реализовать bean definitions для repository классов.
+
+         Использовать аннотацию @Repository
+         Для создания UserRepository использовать класс org.shop.repository.factory.UserRepositoryFactory и соответствующий factory method
+         Для создания OrderRepository необходимо передать параметр intitialSequence, значение которого должно быть взято из property файла.
+
+
+
+Task4
+
+Please use spring task templates https://github.com/trainings?tab=repositories
+
+Реализовать bean definitions для service классов:
+
+        Для OrderService: использовать аннотацию @Resource
+        ItemService: передать необходимые параметры через конструктор
+        SellerService: использовать autowiring by type
+        ProductService: использовать autowiring by constructor
+        UserService: использовать метод populate
+        ProposalService: передать repository через конструктор, а остальные остальные параметры передать через соответствующий setter-метод
+
+
+
+
+Task5
+
+Please use spring task templates https://github.com/trainings?tab=repositories
+
+Реализовать bean definitions для data initializer классов
+
+        Создать bean типа Map
+
+    ID = 1, Value = org.shop.common.Sellers.AMAZON
+    ID = 2, Value = org.shop.common.Sellers.SAMSUNG
+    ID = 3, Value = ‘Apple’
+
+    SellerInitializer: использовать параметр типа Map<sellerId, sellerName> из предыдущего пункта
+    ProposalInitializer: использовать autowiring by name
+    ProductInitializer: передать параметры в конструктор
+    DataInitializer: инициализировать при помощи init метода
+
+
+
+Task6
+
+Please use spring task templates https://github.com/trainings?tab=repositories
+
+    Добавить alias для UserService в корневом конфигурационном файле 
+
+
+
+Task7
+
+Please use spring task templates https://github.com/trainings?tab=repositories
+
+Реализовать метод main для ShopLauncher класса
+
+        Создать и инициализировать ApplicationContext
+        Получить bean по имени
+        Получить bean по типу
+        Получить bean по имени и типу
+        Получить bean по alias
+        Проверить работоспособность 
