@@ -1,0 +1,19 @@
+Task 1
+
+Implement Web application with using spring and spring mvc. Please use apache tiles for dividing pages to sections. Create intergration between layers: dao, services, web.
+
+
+Task 3
+
+Implement web app using Spring MVC. Use any of previous apps as a base for service and data access layers.
+
+Requirements:
+
+    Forms for CRUD operations (POST/PUT/DELETE)
+    Store recent user selecitons in session
+    Log user browser when some app functionality is accessed
+    Render 2 different views depending on value of Alternates header
+    Use content negotiation with message formatting for rendering XML or JSON
+    Implement PDF upload/download functionality
+    Implement single error page for all controllers
+    Implement profiler that will measure request execution time and log it
