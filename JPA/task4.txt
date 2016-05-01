@@ -1,0 +1,35 @@
+We get next info as JSON from server.
+
+Models:  Employee, EmployeeStatus, Address, Personal, Project, Unit
+
+Take into account the following:
+
+    EmployeeStatus should be Enum type
+    Address should be embedded to Employee object
+    Relationship between Employee and EmployeePersonalInfo should be one-to-one
+    Relationship between Employee and Project should be many-to-many
+    Relationship between Unit and Employee should be one-to-many
+
+You need to generate json, process them and store to cache.
+
+http://www.json-generator.com/  - you can use this generator.
+
+Use several ORM from list to implement and compare
+
+    XCORE (https://github.com/IstiN/android_xcore)
+    ORMLite (https://github.com/j256/ormlite-android)
+    Realm (http://realm.io/)
+    Other...
+
+Please test which provides better speed (provide results) to write / read values.
+
+Which needs less code for implementation?
+
+Implement methods which provides:
+
+    Create Employee / Unit / Project
+    Find employee / Unit / Project by id
+    Delete employee / Unit / Project by id
+    Update Employee / Unit / Project by id
+    Add Employee to Unit by id’s
+    Assign Employee for Project by id’s
