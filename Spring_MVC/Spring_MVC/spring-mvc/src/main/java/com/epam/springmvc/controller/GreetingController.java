@@ -7,6 +7,9 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.support.StringMultipartFileEditor;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.inject.Inject;
@@ -44,8 +47,8 @@ public class GreetingController {
     }
 
     @RequestMapping(value = "admin/add-item", method = RequestMethod.POST)
-    public String addItem(@ModelAttribute Meal meal, ModelMap modelMap) {
-        mealService.addMeal(meal);
+    public String addItem(@ModelAttribute Meal meal, ModelMap modelMap, @RequestParam("file") MultipartFile file) {
+        mealService.addMeal(meal, file);
         return "redirect:" + "/admin/all-items";
     }
 }

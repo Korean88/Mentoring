@@ -1,6 +1,8 @@
 package com.epam.springmvc.service;
 
 import com.epam.springmvc.model.Meal;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.support.StringMultipartFileEditor;
 
 import java.util.Set;
 
@@ -11,6 +13,6 @@ public interface MealService {
 
     Set<Meal> fetchAllMeals();
 
-    Meal addMeal(Meal meal);
+    Meal addMeal(Meal meal, MultipartFile file);
 
 }

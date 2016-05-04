@@ -1,6 +1,7 @@
 package com.epam.springmvc.dao;
 
 import com.epam.springmvc.model.Meal;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Set;
 
@@ -11,6 +12,6 @@ public interface MealDao {
 
     Set<Meal> findAll();
 
-    Meal addMeal(Meal meal);
+    Meal addMeal(Meal meal, MultipartFile file);
 
 }

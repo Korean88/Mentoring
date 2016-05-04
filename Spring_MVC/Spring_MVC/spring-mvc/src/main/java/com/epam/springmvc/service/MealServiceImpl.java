@@ -4,6 +4,8 @@ import com.epam.springmvc.dao.MealDao;
 import com.epam.springmvc.model.Meal;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.support.StringMultipartFileEditor;
 
 import javax.annotation.Resource;
 import java.util.HashSet;
@@ -31,7 +33,7 @@ public class MealServiceImpl implements MealService {
     }
 
     @Override
-    public Meal addMeal(Meal meal) {
-        return mealDao.addMeal(meal);
+    public Meal addMeal(Meal meal, MultipartFile file) {
+        return mealDao.addMeal(meal, file);
     }
 }
