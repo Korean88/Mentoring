@@ -14,4 +14,10 @@ public interface MealDao {
 
     Meal addMeal(Meal meal, MultipartFile file);
 
+    Meal findById(Integer id);
+
+    boolean editMeal(Integer id, Meal meal, MultipartFile file);
+
+    boolean deleteMeal(Integer id);
+
 }

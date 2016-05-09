@@ -13,6 +13,21 @@
                     <br/>
                     Vegetarian: ${meal.vegetarian}
                 </td>
+                <td><a class="w3-badge w3-padding-large w3-black" href="<c:url value='/admin/edit/${meal.id}'/>">
+                        <i class="fa fa-pencil" style="font-size:24px"></i>
+                    </a>&nbsp;&nbsp;
+                    <a class="w3-badge w3-padding-large w3-red" href="<c:url value='/admin/delete/${meal.id}'/>">
+                        <i class="fa fa-trash" style="font-size:24px"></i>
+                    </a>
+                    <br>
+                    <br>
+                    <a class="w3-badge w3-padding-large w3-blue" href="<c:url value='/cn/${meal.id}.xml'/>">
+                        XML
+                    </a>&nbsp;
+                    <a class="w3-badge w3-padding-large w3-blue" href="<c:url value='/cn/${meal.id}.json'/>">
+                        JSON
+                    </a>
+                    </td>
             </tr>
             </c:forEach>
         </table>

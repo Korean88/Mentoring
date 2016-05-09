@@ -31,7 +31,9 @@ CREATE TABLE IF NOT EXISTS `cart_item` (
   CONSTRAINT `FK_USERID` FOREIGN KEY (`USER_ID`) REFERENCES `user` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Экспортируемые данные не выделены.
+-- Дамп данных таблицы fast_food.cart_item: ~0 rows (приблизительно)
+/*!40000 ALTER TABLE `cart_item` DISABLE KEYS */;
+/*!40000 ALTER TABLE `cart_item` ENABLE KEYS */;
 
 
 -- Дамп структуры для таблица fast_food.meal
@@ -42,10 +44,20 @@ CREATE TABLE IF NOT EXISTS `meal` (
   `VEGETARIAN` tinyint(1) DEFAULT '0',
   `DIABETIC` tinyint(1) DEFAULT '0',
   `PRICE` decimal(10,2) NOT NULL,
+  `IMG_PATH` varchar(256) DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 
--- Экспортируемые данные не выделены.
+-- Дамп данных таблицы fast_food.meal: ~7 rows (приблизительно)
+/*!40000 ALTER TABLE `meal` DISABLE KEYS */;
+INSERT INTO `meal` (`ID`, `NAME`, `VEGETARIAN`, `DIABETIC`, `PRICE`, `IMG_PATH`) VALUES
+	(2, 'Vegeterian Hamburger', 1, 1, 6.99, '/resources/img/vegi-burger.jpg'),
+	(3, 'Cheesburger', 0, 0, 7.25, 'http://localhost:8080/fastfood/images/cheesburger.jpg'),
+	(4, 'Coke', NULL, 0, 2.50, '/resources/img/coke.jpg'),
+	(5, 'Diabetic Coke', NULL, 1, 2.99, '/resources/img/diet_coke.png'),
+	(6, 'Mineral Water', NULL, NULL, 3.01, '/resources/img/mineral_water.png'),
+	(16, 'awe', 1, NULL, 2.00, 'http://localhost:8080/fastfood/images/diet_coke.png');
+/*!40000 ALTER TABLE `meal` ENABLE KEYS */;
 
 
 -- Дамп структуры для таблица fast_food.user
@@ -57,9 +69,15 @@ CREATE TABLE IF NOT EXISTS `user` (
   `F_NAME` varchar(60) NOT NULL,
   `L_NAME` varchar(60) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
--- Экспортируемые данные не выделены.
+-- Дамп данных таблицы fast_food.user: ~3 rows (приблизительно)
+/*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` (`ID`, `LOGIN`, `PASSWORD`, `F_NAME`, `L_NAME`) VALUES
+	(3, 'BobT', 'spring', 'Bill', 'Tornton'),
+	(4, 'AdamS', 'spring', 'Adam', 'Sandler'),
+	(5, 'JonnyD', 'spring', 'John', 'Depp');
+/*!40000 ALTER TABLE `user` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

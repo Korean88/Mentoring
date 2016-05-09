@@ -5,6 +5,7 @@
 <head>
     <title>${title}</title>
     <link href="<c:url value="/resources/css/w3.css"/>" rel="stylesheet"/>
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
     <script type="application/javascript" src="<c:url value="/resources/script/w3.js"/>"></script>
 </head>
 <body>

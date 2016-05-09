@@ -5,7 +5,6 @@ import com.epam.springmvc.model.Meal;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.support.StringMultipartFileEditor;
 
 import javax.annotation.Resource;
 import java.util.HashSet;
@@ -35,5 +34,25 @@ public class MealServiceImpl implements MealService {
     @Override
     public Meal addMeal(Meal meal, MultipartFile file) {
         return mealDao.addMeal(meal, file);
+    }
+
+    @Override
+    public Meal findById(Integer id) {
+        return mealDao.findById(id);
+    }
+
+    @Override
+    public boolean editMeal(Integer id, Meal meal, MultipartFile file) {
+        if (mealDao.editMeal(id, meal, file)) {
+            return true;
+        } else {
+            LOG.warn("Could not edit Meal with id:" + id + ", " + meal);
+            return false;
+        }
+    }
+
+    @Override
+    public boolean deleteMeal(Integer id) {
+        return mealDao.deleteMeal(id);
     }
 }

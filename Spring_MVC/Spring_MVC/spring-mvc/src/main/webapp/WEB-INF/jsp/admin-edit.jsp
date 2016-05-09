@@ -9,13 +9,13 @@
         <br/>
 
         <div class="w3-container">
-            <h2>Add New Meal</h2>
+            <h2>Edit Meal</h2>
         </div>
 
         <form:form method="post" class="w3-container" enctype="multipart/form-data">
             <p>
                 <form:label path="name">Name</form:label>
-                <form:input path="name" class="w3-input"/>
+                <form:input path="name" class="w3-input" />
             </p>
             <p>
                 <form:label path="price">Price</form:label>
@@ -30,6 +30,9 @@
                 <form:label path="vegetarian">Vegetarian</form:label>
                 <form:radiobutton path="vegetarian" value="true" class="w3-radio"/>Yes
                 <form:radiobutton path="vegetarian" value="false" class="w3-radio"/>No
+            </p>
+            <p>
+                <img src="<c:url value='${meal.imagePath}'/>" class="w3-border w3-padding" alt="${meal.name}">
             </p>
             <p>
                 <input class="w3-btn w3-light-grey w3-border w3-border-yellow w3-round-xlarge" type="file" name="file"/>
