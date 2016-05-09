@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <context:annotation-config />
+
+    <context:component-scan base-package="com.epam.mentoring.repository"/>
+
+    <util:map id="cashierResource" key-type="java.lang.Integer" value-type="com.epam.mentoring.model.Cashier">
+        <entry key="1" value-ref="cashier1"/>
+    </util:map>
+
+    <bean id="cashier1" class="com.epam.mentoring.model.Cashier">
+        <property name="id" value="1"/>
+        <property name="clients">
+            <set value-type="com.epam.mentoring.model.Client">
+                <ref bean="client1"/>
+            </set>
+        </property>
+    </bean>
+
+    <util:map id="clientResource" key-type="java.lang.Integer" value-type="com.epam.mentoring.model.Client">
+        <entry key="1" value-ref="client1"/>
+    </util:map>
+
+    <bean id="client1" class="com.epam.mentoring.model.Client">
+        <property name="name" value="Adam Sandler"/>
+        <property name="id" value="1"/>
+        <property name="order" ref="order1"/>
+    </bean>
+
+    <bean id="order1" class="com.epam.mentoring.model.Order">
+        <property name="id" value="1"/>
+        <property name="meals">
+            <list value-type="com.epam.mentoring.model.Meal">
+                <ref bean="hamburgerMeal"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="hamburgerMeal" class="com.epam.mentoring.model.Meal">
+        <property name="id" value="1"/>
+        <property name="recipe" ref="hamburgerRecipe"/>
+    </bean>
+
+    <bean id="hamburgerRecipe" class="com.epam.mentoring.model.Recipe">
+        <property name="id" value="1"/>
+        <property name="ingredients" ref="hamburgerIngredients"/>
+    </bean>
+
+    <!--Create a bean of Map type (task5)-->
+    <util:map id="hamburgerIngredients" key-type="java.lang.String" value-type="java.lang.String">
+        <entry key="bread" value="2 pcs"/>
+        <entry key="burger" value="1 pcs"/>
+        <entry key="salad" value="2 pcs"/>
+        <entry key="ketchup" value="2 g"/>
+        <entry key="mayonnaise" value="2 g"/>
+    </util:map>
+
+</beans>
