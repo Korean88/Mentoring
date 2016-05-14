@@ -1,6 +1,6 @@
 -- --------------------------------------------------------
 -- Хост:                         127.0.0.1
--- Версия сервера:               5.6.20 - MySQL Community Server (GPL)
+-- Версия сервера:               5.6.13 - MySQL Community Server (GPL)
 -- ОС Сервера:                   Win64
 -- HeidiSQL Версия:              8.0.0.4396
 -- --------------------------------------------------------
@@ -9,46 +9,13 @@
 /*!40101 SET NAMES utf8 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-
--- Дамп структуры базы данных fast_food
-DROP DATABASE IF EXISTS `fast_food`;
-CREATE DATABASE IF NOT EXISTS `fast_food` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `fast_food`;
-
-
--- Дамп структуры для таблица fast_food.cart_item
-DROP TABLE IF EXISTS `cart_item`;
-CREATE TABLE IF NOT EXISTS `cart_item` (
-  `USER_ID` int(10) NOT NULL,
-  `MEAL_ID` int(10) NOT NULL,
-  `QTY` int(3) NOT NULL,
-  `DATE_ADDED` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `ID` int(10) NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`ID`),
-  KEY `FK_USERID` (`USER_ID`),
-  KEY `FK_MEALID` (`MEAL_ID`),
-  CONSTRAINT `FK_MEALID` FOREIGN KEY (`MEAL_ID`) REFERENCES `meal` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_USERID` FOREIGN KEY (`USER_ID`) REFERENCES `user` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 -- Дамп данных таблицы fast_food.cart_item: ~0 rows (приблизительно)
+DELETE FROM `cart_item`;
 /*!40000 ALTER TABLE `cart_item` DISABLE KEYS */;
 /*!40000 ALTER TABLE `cart_item` ENABLE KEYS */;
 
-
--- Дамп структуры для таблица fast_food.meal
-DROP TABLE IF EXISTS `meal`;
-CREATE TABLE IF NOT EXISTS `meal` (
-  `ID` int(10) NOT NULL AUTO_INCREMENT,
-  `NAME` varchar(50) NOT NULL,
-  `VEGETARIAN` tinyint(1) DEFAULT '0',
-  `DIABETIC` tinyint(1) DEFAULT '0',
-  `PRICE` decimal(10,2) NOT NULL,
-  `IMG_PATH` varchar(256) DEFAULT NULL,
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
-
--- Дамп данных таблицы fast_food.meal: ~7 rows (приблизительно)
+-- Дамп данных таблицы fast_food.meal: ~6 rows (приблизительно)
+DELETE FROM `meal`;
 /*!40000 ALTER TABLE `meal` DISABLE KEYS */;
 INSERT INTO `meal` (`ID`, `NAME`, `VEGETARIAN`, `DIABETIC`, `PRICE`, `IMG_PATH`) VALUES
 	(2, 'Vegeterian Hamburger', 1, 1, 6.99, '/resources/img/vegi-burger.jpg'),
@@ -59,25 +26,33 @@ INSERT INTO `meal` (`ID`, `NAME`, `VEGETARIAN`, `DIABETIC`, `PRICE`, `IMG_PATH`)
 	(16, 'awe', 1, NULL, 2.00, 'http://localhost:8080/fastfood/images/diet_coke.png');
 /*!40000 ALTER TABLE `meal` ENABLE KEYS */;
 
-
--- Дамп структуры для таблица fast_food.user
-DROP TABLE IF EXISTS `user`;
-CREATE TABLE IF NOT EXISTS `user` (
-  `ID` int(10) NOT NULL AUTO_INCREMENT,
-  `LOGIN` varchar(25) NOT NULL,
-  `PASSWORD` varchar(60) NOT NULL,
-  `F_NAME` varchar(60) NOT NULL,
-  `L_NAME` varchar(60) NOT NULL,
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+-- Дамп данных таблицы fast_food.role: ~0 rows (приблизительно)
+DELETE FROM `role`;
+/*!40000 ALTER TABLE `role` DISABLE KEYS */;
+INSERT INTO `role` (`ID`, `NAME`) VALUES
+	(1, 'admin'),
+	(2, 'user');
+/*!40000 ALTER TABLE `role` ENABLE KEYS */;
 
 -- Дамп данных таблицы fast_food.user: ~3 rows (приблизительно)
+DELETE FROM `user`;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 INSERT INTO `user` (`ID`, `LOGIN`, `PASSWORD`, `F_NAME`, `L_NAME`) VALUES
 	(3, 'BobT', 'spring', 'Bill', 'Tornton'),
 	(4, 'AdamS', 'spring', 'Adam', 'Sandler'),
-	(5, 'JonnyD', 'spring', 'John', 'Depp');
+	(5, 'JonnyD', 'spring', 'John', 'Depp'),
+	(6, 'Admin', 'spring', 'Admin', 'Admin');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
+
+-- Дамп данных таблицы fast_food.user_role: ~0 rows (приблизительно)
+DELETE FROM `user_role`;
+/*!40000 ALTER TABLE `user_role` DISABLE KEYS */;
+INSERT INTO `user_role` (`user_id`, `role_id`) VALUES
+	(6, 1),
+	(4, 2),
+	(3, 2),
+	(5, 2);
+/*!40000 ALTER TABLE `user_role` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
