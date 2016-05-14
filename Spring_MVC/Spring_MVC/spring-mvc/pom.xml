@@ -12,6 +12,7 @@
         <project.version>1.0-SNAPSHOT</project.version>
         <project.groupId>com.epam.springmvc</project.groupId>
         <spring.version>4.2.5.RELEASE</spring.version>
+        <spring.security.version>4.1.0.RELEASE</spring.security.version>
         <hibernate.core.version>5.1.0.Final</hibernate.core.version>
     </properties>
     <dependencies>
@@ -41,6 +42,21 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
             <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>${spring.security.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>${spring.security.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-taglibs</artifactId>
+            <version>${spring.security.version}</version>
         </dependency>
 
         <dependency>
