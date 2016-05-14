@@ -29,13 +29,13 @@
                     </c:if>
 
                     <p>
-                        <label class="w3-label w3-text-orange" for="username"><b>Login</b></label>
+                        <label class="w3-label w3-text-black" for="username"><b>Login</b></label>
                         <input class="w3-input w3-border w3-pale-yellow" id="username" type="text" name="login"
                                placeholder="Login" required="true">
                     </p>
 
                     <p>
-                        <label class="w3-label w3-text-orange" for="pass"><b>Password</b></label>
+                        <label class="w3-label w3-text-black" for="pass"><b>Password</b></label>
                         <input class="w3-input w3-border w3-pale-yellow" id="pass" type="password" name="password"
                                placeholder="Password" required="true">
                     </p>

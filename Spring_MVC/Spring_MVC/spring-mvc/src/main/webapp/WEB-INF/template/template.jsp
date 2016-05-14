@@ -19,7 +19,6 @@
 </nav>
 <div id="container">
     <div id="main">
-
         <div id="header" class="w3-container w3-orange">
             <span class="w3-opennav w3-xlarge" onclick="w3_open()">&#9776;</span>
             <tiles:insertAttribute name="header"/>
@@ -28,9 +27,9 @@
         <div id="body" class="w3-container">
             <tiles:insertAttribute name="body"/>
         </div>
-
     </div>
 
+    <br><br>
     <div id="footer" class="w3-container w3-orange">
         <tiles:insertAttribute name="footer"/>
     </div>
