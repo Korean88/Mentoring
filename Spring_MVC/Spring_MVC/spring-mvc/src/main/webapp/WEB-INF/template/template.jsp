@@ -28,7 +28,7 @@
         <tiles:insertAttribute name="body"/>
     </div>
 
-    <footer class="w3-container w3-orange">
+    <footer class="w3-container w3-orange" style="position: absolute;left: 0;bottom: 0;height: 100px;width: 100%;">
         <tiles:insertAttribute name="footer"/>
     </footer>
 

@@ -1,2 +1,2 @@
-<h5>Footer</h5>
-<p>Footer information goes here</p>
+<h5>EPAM</h5>
+<p>Java Mentoring Program</p>

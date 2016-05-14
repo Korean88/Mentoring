@@ -91,4 +91,11 @@ public class MealController {
     public Meal listMeal(@PathVariable String id) {
         return mealService.findById(Integer.parseInt(id));
     }
+
+    @RequestMapping(value = "login", method = RequestMethod.GET)
+    public ModelAndView loginPage() {
+        ModelAndView modelAndView = new ModelAndView("login");
+        modelAndView.addObject("title", "Login");
+        return modelAndView;
+    }
 }
