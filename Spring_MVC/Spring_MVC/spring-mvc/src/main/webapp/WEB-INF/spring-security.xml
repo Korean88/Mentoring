@@ -9,11 +9,12 @@
 
     <http auto-config="true">
         <intercept-url pattern="/" access="hasAnyRole('user', 'admin')"/>
+        <intercept-url pattern="/cart/**" access="hasAnyRole('user', 'admin')"/>
         <intercept-url pattern="/admin/**" access="hasRole('admin')"/>
         <form-login login-page="/login"
                     username-parameter="login"
                     password-parameter="password"
-                    authentication-failure-url="/login?error=1"/>
+                    authentication-failure-url="/login?error"/>
         <csrf/>
     </http>
 
