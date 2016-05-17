@@ -13,6 +13,7 @@
         <project.groupId>com.epam.springmvc</project.groupId>
         <spring.version>4.2.5.RELEASE</spring.version>
         <spring.security.version>4.1.0.RELEASE</spring.security.version>
+        <aspectj.version>1.8.9</aspectj.version>
         <hibernate.core.version>5.1.0.Final</hibernate.core.version>
     </properties>
     <dependencies>
@@ -52,6 +53,22 @@
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-config</artifactId>
             <version>${spring.security.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aop</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjrt</artifactId>
+            <version>${aspectj.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>${aspectj.version}</version>
         </dependency>
 
         <dependency>
