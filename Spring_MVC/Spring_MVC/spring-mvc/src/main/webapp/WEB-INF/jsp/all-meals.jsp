@@ -16,9 +16,12 @@
                 </td>
                 <td><a class="w3-badge w3-padding-large w3-black" href="<c:url value='/admin/edit/${meal.id}'/>">
                         <i class="fa fa-pencil" style="font-size:24px"></i>
-                    </a>&nbsp;&nbsp;
+                    </a>&nbsp;
                     <a class="w3-badge w3-padding-large w3-red" href="<c:url value='/admin/delete/${meal.id}'/>">
                         <i class="fa fa-trash" style="font-size:24px"></i>
+                    </a>&nbsp;
+                    <a class="w3-tag w3-padding-medium w3-dark-grey" href="<c:url value='/download/image/${meal.id}'/>">
+                        <i class="fa fa-file-image-o" style="font-size:24px"></i>
                     </a>
                     <br>
                     <br>

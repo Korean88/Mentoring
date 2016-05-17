@@ -3,6 +3,7 @@ package com.epam.springmvc.dao;
 import com.epam.springmvc.model.Meal;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.util.Set;
 
 /**
@@ -19,5 +20,7 @@ public interface MealDao {
     boolean editMeal(Integer id, Meal meal, MultipartFile file);
 
     boolean deleteMeal(Integer id);
+
+    File getFileForMeal(String imgPath);
 
 }

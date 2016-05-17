@@ -8,9 +8,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,6 +23,12 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URLConnection;
 import java.util.Set;
 
 /**
@@ -34,9 +42,12 @@ public class MealController {
     private MealService mealService;
 
     @RequestMapping(value = {"/", "/main"}, method = RequestMethod.GET)
-    public String loadIndex(ModelMap modelMap) {
+    public String loadIndex(@RequestHeader(value = "User-Agent") String userAgent, ModelMap modelMap) {
         modelMap.addAttribute("title", "Main page");
         modelMap.addAttribute("user", UserUtil.getPrincipal());
+        if (userAgent != null && userAgent.contains("MSIE")) {
+            return "explorer/main_explorer";
+        }
         return "main";
     }
 
@@ -46,7 +57,7 @@ public class MealController {
         Set<Meal> allMeals = mealService.fetchAllMeals();
         modelMap.put("allMeals", allMeals);
         modelMap.addAttribute("user", UserUtil.getPrincipal());
-        return "admin-all";
+        return "all-meals";
     }
 
     @RequestMapping(value = "/admin/add-item", method = RequestMethod.GET)
@@ -133,5 +144,17 @@ public class MealController {
         }
         return "redirect:/login?logout";
     }
+
+    @RequestMapping(value = "/download/image/{id}", method = RequestMethod.GET)
+    public void downloadImage(@PathVariable String id, HttpServletResponse response) throws IOException {
+        File file = mealService.getFileForMeal(Integer.parseInt(id));
+        String mimeType= URLConnection.guessContentTypeFromName(file.getName());
+        response.setContentType(mimeType);
+        response.setHeader("Content-Disposition", String.format("attachment; filename=\"%s\"", file.getName()));
+        response.setContentLength((int)file.length());
+        InputStream inputStream = new BufferedInputStream(new FileInputStream(file));
+        FileCopyUtils.copy(inputStream, response.getOutputStream());
+    }
+
 
 }

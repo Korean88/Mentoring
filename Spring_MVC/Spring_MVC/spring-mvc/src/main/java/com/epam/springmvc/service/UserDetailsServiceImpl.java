@@ -2,6 +2,7 @@ package com.epam.springmvc.service;
 
 import com.epam.springmvc.model.Role;
 import com.epam.springmvc.model.User;
+import org.apache.log4j.Logger;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,11 +21,14 @@ import java.util.List;
 @Service(value = "customUserDetailsService")
 public class UserDetailsServiceImpl implements UserDetailsService {
 
+    private static final Logger LOGGER = Logger.getLogger(UserDetailsServiceImpl.class);
+
     @Resource
     private UserService userService;
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+        LOGGER.info("loadUserByUsername() method was accessed");
         User user = userService.findByLogin(s);
         if (user == null) {
             throw new UsernameNotFoundException("User with login " + s + " was not found");

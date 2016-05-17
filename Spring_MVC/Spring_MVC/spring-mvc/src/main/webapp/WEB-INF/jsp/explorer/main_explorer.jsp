@@ -1,7 +1,4 @@
-<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<tiles:insertDefinition name="tilesTemplate">
-    <tiles:putAttribute name="body">
         <h2>Main</h2>
         <h4>Requirements:</h4>
         <p>  + Forms for CRUD operations (POST/PUT/DELETE)</p>
@@ -12,5 +9,3 @@
         <p>  + Implement PDF upload/download functionality</p>
         <p>  + Implement single error page for all controllers</p>
         <p>  - Implement profiler that will measure request execution time and log it</p>
-    </tiles:putAttribute>
-</tiles:insertDefinition>

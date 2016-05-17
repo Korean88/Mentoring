@@ -12,11 +12,9 @@
 <body>
 
 <nav class="w3-sidenav w3-white w3-card-2" style="display:none">
-    <a href="javascript:void(0)"
-       onclick="w3_close()"
-       class="w3-closenav w3-large">Close &times;</a>
     <tiles:insertAttribute name="menu"/>
 </nav>
+
 <div id="container">
     <div id="main">
         <div id="header" class="w3-container w3-orange">
@@ -24,7 +22,7 @@
             <tiles:insertAttribute name="header"/>
         </div>
 
-        <div id="body" class="w3-container">
+        <div id="body" class="w3-container w3-responsive">
             <tiles:insertAttribute name="body"/>
         </div>
     </div>

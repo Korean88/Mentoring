@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -33,6 +34,7 @@ public class MealServiceImpl implements MealService {
 
     @Override
     public Meal addMeal(Meal meal, MultipartFile file) {
+        LOG.info("addMeal() method was accessed");
         return mealDao.addMeal(meal, file);
     }
 
@@ -43,6 +45,7 @@ public class MealServiceImpl implements MealService {
 
     @Override
     public boolean editMeal(Integer id, Meal meal, MultipartFile file) {
+        LOG.info("editMeal() method was accessed");
         if (mealDao.editMeal(id, meal, file)) {
             return true;
         } else {
@@ -53,6 +56,18 @@ public class MealServiceImpl implements MealService {
 
     @Override
     public boolean deleteMeal(Integer id) {
+        LOG.info("deleteMeal() method was accessed");
         return mealDao.deleteMeal(id);
+    }
+
+    @Override
+    public File getFileForMeal(Integer id) {
+        LOG.info("A file retrieval functionality was accessed");
+        Meal meal = mealDao.findById(id);
+        String imgPath = meal.getImagePath();
+        if (imgPath != null && !imgPath.isEmpty()) {
+            return mealDao.getFileForMeal(imgPath);
+        }
+        return null;
     }
 }

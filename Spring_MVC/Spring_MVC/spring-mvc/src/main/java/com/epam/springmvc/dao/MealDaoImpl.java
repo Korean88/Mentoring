@@ -1,15 +1,18 @@
 package com.epam.springmvc.dao;
 
+import com.epam.springmvc.exception.BusinessException;
 import com.epam.springmvc.model.Meal;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.servlet.ServletContext;
 import javax.transaction.Transactional;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -26,7 +29,7 @@ import java.util.regex.Pattern;
 @Transactional
 public class MealDaoImpl implements MealDao {
 
-    private static final Logger LOGGER  =Logger.getLogger(MealDaoImpl.class);
+    private static final Logger LOGGER = Logger.getLogger(MealDaoImpl.class);
 
     @Value("${tomcat.dir}")
     private String tomcatDir;
@@ -39,6 +42,9 @@ public class MealDaoImpl implements MealDao {
 
     @PersistenceContext
     private EntityManager em;
+
+    @Inject
+    private ServletContext ctx;
 
     @Override
     public Set<Meal> findAll() {
@@ -55,14 +61,13 @@ public class MealDaoImpl implements MealDao {
 
     private void saveFile(Meal meal, MultipartFile multipartFile) {
         if (!multipartFile.isEmpty()) {
-            try {
+            File dir = new File(picsDir);
+            if (!dir.exists()) {
+                dir.mkdir();
+            }
+            File file = new File(picsDir + File.separator + multipartFile.getOriginalFilename());
+            try (FileOutputStream fos = new FileOutputStream(file)) {
                 byte[] bytes = multipartFile.getBytes();
-                File dir = new File(picsDir);
-                if (!dir.exists()) {
-                    dir.mkdir();
-                }
-                File file = new File(picsDir + File.separator + multipartFile.getOriginalFilename());
-                FileOutputStream fos = new FileOutputStream(file);
                 fos.write(bytes);
                 fos.close();
                 meal.setImagePath(picsUrl + multipartFile.getOriginalFilename());
@@ -139,5 +144,22 @@ public class MealDaoImpl implements MealDao {
         } else {
             return "";
         }
+    }
+
+    @Override
+    public File getFileForMeal(String imgPath) {
+        String filename = extractFileName(imgPath);
+        try {
+            if (imgPath.startsWith("http://")) {
+                return new File(picsDir + File.separator + filename);
+            } else if (imgPath.startsWith("/resources/")) {
+                String absPath = ctx.getResource("/WEB-INF/img/" + filename).getFile();
+                return new File(absPath);
+//                return new File("./WEB-INF/img/" + filename);
+            }
+        } catch (Exception e) {
+            LOGGER.error("Could not get File" + imgPath, e);
+        }
+        throw new BusinessException("Could not get file " + filename);
     }
 }
