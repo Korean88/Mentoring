@@ -19,8 +19,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Created by Andrey Yun on 16.04.2016.
@@ -136,14 +134,7 @@ public class MealDaoImpl implements MealDao {
     }
 
     String extractFileName(String path) {
-        String regex = ".+/([\\w[.]]+\\.[a-zA-Z0-9]+)\\z";
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(path);
-        if (matcher.matches()) {
-            return matcher.group(1);
-        } else {
-            return "";
-        }
+        return path.substring(path.lastIndexOf("/") + 1, path.length());
     }
 
     @Override

@@ -18,4 +18,11 @@ public class MealDaoTest {
         String res = mealDao.extractFileName(path);
         assertThat(res, equalTo("mushroom_bur.ger.png"));
     }
+
+    @Test
+    public void shouldExtractFileNameFromValidPathWithDash() {
+        String path = "/resources/img/vegi-burger.jpg";
+        String res = mealDao.extractFileName(path);
+        assertThat(res, equalTo("vegi-burger.jpg"));
+    }
 }

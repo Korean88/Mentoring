@@ -8,7 +8,9 @@ import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Created by Andrey on 17.05.2016.
@@ -27,8 +29,8 @@ public class MeasureProfiler {
         long end = System.currentTimeMillis();
         long time = end - start;
         LOGGER.info(joinPoint.getSignature().getName() + " with param [" +
-//                Arrays.asList(joinPoint.getArgs()).stream().map(o -> o.toString()).collect(Collectors.joining(", "))
-                joinPoint.getArgs()[0].toString() + "] was called. Processing took " + time + " ms"
+                Arrays.asList(joinPoint.getArgs()).stream().map(o -> o.toString()).collect(Collectors.joining(", "))
+                + "] was called. Processing took " + time + " ms"
         );
         return res;
     }
@@ -43,10 +45,4 @@ public class MeasureProfiler {
         return res;
     }
 
-    private long measure(ProceedingJoinPoint joinPoint) throws Throwable {
-        long start = System.currentTimeMillis();
-        joinPoint.proceed();
-        long end = System.currentTimeMillis();
-        return end - start;
-    }
 }
