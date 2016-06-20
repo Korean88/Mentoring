@@ -1,0 +1,9 @@
+In CATALINA_HOME/conf/server.xml add
+
+<Context path="/fastfood/images" docBase="c:/app_pics" />
+
+inside <Host> tag
+
+In IntelliJ add CATALINA_BASE as environment variable into run/debug configuration. Must point to CATALINA_HOME
+
+Note: the folder 'c:/app_pics' must exist prior to the server start.
